@@ -1,0 +1,9 @@
+<div class="home-form">
+    <p>Salut </p>
+    <form class="form-content" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <input id="email" class="form-content__input" name="email" type="text" placeholder="Adresse e-mail" aria-label="Adresse e-mail" ngModel required>
+        <input id="password" class="form-content__input" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" ngModel required>
+        <button class="form-content__btn" name="login" type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+        <button class="form-content__btn" name="signin" type="submit">S'inscrire</button>
+    </form>
+</div>
