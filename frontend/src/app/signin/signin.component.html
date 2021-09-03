@@ -1,0 +1,10 @@
+<div class="home-form">
+    <img class="home-form__img" src="../../assets/icon-above-font.png" alt="Logo de l'entreprise">
+    <form class="form-content" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <input id="name" class="form-content__input" name="name" type="text" placeholder="Nom" aria-label="Nom" ngModel required>
+        <input id="first-name" class="form-content__input" name="first-name" type="text" placeholder="Prénom" aria-label="Prénom" ngModel required>
+        <input id="email" class="form-content__input" name="email" type="text" placeholder="Adresse e-mail" aria-label="Adresse e-mail" ngModel required>
+        <input id="password" class="form-content__input" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" ngModel required>
+        <button class="form-content__btn" name="login" type="submit" [disabled]="loginForm.invalid">S'inscrire</button>
+    </form>
+</div>
