@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -8,19 +10,26 @@ import { NgForm } from '@angular/forms';
 })
 export class SigninComponent implements OnInit {
 
-  constructor() { }
+  authStatus: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.authStatus = this.authService.isAuth;
   }
 
-  onSubmit(form: NgForm) {
-    const User = {
-      name: form.value['name'],
-      fisrtName: form.value['first-name'],
-      email: form.value['email'],
-      password: form.value['password'],
-    }
-    console.log(User);
+  onSignin(form: NgForm) {
+      this.authService.signin().then(() =>{
+        this.authStatus = this.authService.isAuth;
+        this.router.navigate(['home']);
+      });
+      const User = {
+        name: form.value['name'],
+        fisrtName: form.value['first-name'],
+        email: form.value['email'],
+        password: form.value['password'],
+      }
+      console.log(User);
   }
 
 }

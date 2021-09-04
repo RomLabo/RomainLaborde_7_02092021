@@ -1,6 +1,28 @@
+
+
 export class AuthService {
-    login(userEmail: string, userPassword: string) {
-        console.log(userPassword);
-        console.log(userEmail);
+
+    isAuth = false;
+
+    login() {
+        return new Promise ((resolve, reject) => {
+            setTimeout(() => {
+                this.isAuth = true;
+                resolve(true);
+            }, 2000);
+        });
+    }
+
+    logout() {
+
+    }
+
+    signin() {
+        return new Promise ((resolve, reject) => {
+            setTimeout(() => {
+                this.isAuth = true;
+                resolve(true);
+            }, 2000);
+        });
     }
 }

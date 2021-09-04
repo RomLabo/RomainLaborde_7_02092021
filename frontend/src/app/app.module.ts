@@ -5,23 +5,25 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
 import { AuthService } from './services/auth.service';
 import { AuthComponent } from './auth/auth.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes : Routes = [
   { path: '', component: AuthComponent },
-  { path: 'signin', component: SigninComponent }
+  { path: 'signin', component: SigninComponent },
+  { path: 'home', component: HomeComponent }
 ] 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    SigninComponent
+    SigninComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
