@@ -1,9 +1,9 @@
 <div class="home-form">
     <img class="home-form__img" src="../../assets/icon-above-font.png" alt="Logo de l'entreprise">
-    <form class="form-content" (ngSubmit)="onLogin()" #loginForm="ngForm">
-        <input id="email" class="form-content__input" name="email" type="text" placeholder="Adresse e-mail" aria-label="Adresse e-mail" ngModel required>
-        <input id="password" class="form-content__input" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" ngModel required>
-        <button class="form-content__btn" name="login" type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+    <form class="form-content" [formGroup]="userLogForm" (ngSubmit)="onLogin()">
+        <input id="email" class="form-content__input" name="email" type="text" placeholder="Adresse e-mail" aria-label="Adresse e-mail" formControlName="email">
+        <input id="password" class="form-content__input" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" formControlName="password">
+        <button class="form-content__btn" name="login" type="submit" [disabled]="userLogForm.invalid">Se connecter</button>
         <a routerLink="signin" class="form-content__btn">S'inscrire</a>
     </form>
 </div>

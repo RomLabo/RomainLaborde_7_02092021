@@ -9,11 +9,21 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(express.json());
+
 app.post('/api/signin', (req, res, next) => {
-    console.log(req.params);
+    console.log(req.body.user);
     res.status(201).json({
-      message: 'Objet créé !'
+      message: `Utilisateur ${req.body.user.name} créer !`
     });
+});
+
+app.post('/api/login', (req, res, next) => {
+  console.log(req.body.email);
+  console.log(req.body.password);
+  res.status(201).json({
+    message: `Utilisateur ${req.body.email} connecté !`
+  });
 });
 
 module.exports = app;
