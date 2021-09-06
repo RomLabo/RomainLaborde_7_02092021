@@ -15,7 +15,7 @@ export class AuthService {
     login(email: string, password: string) {
         return new Promise ((resolve, reject) => {
             this.http.post(
-                'http://localhost:3000/api/login',
+                'http://localhost:3000/api/auth/login',
                 { email: email, password: password })
             .subscribe(
                 () => {
@@ -34,7 +34,7 @@ export class AuthService {
     signin(user: User) {
         return new Promise ((resolve, reject) => {
             this.http.post(
-                'http://localhost:3000/api/signin',
+                'http://localhost:3000/api/auth/signin',
                 { user: user })
             .subscribe(
                 () => {
