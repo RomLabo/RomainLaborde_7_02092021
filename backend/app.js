@@ -3,21 +3,16 @@ const userRoutes = require('./routes/user');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const helmet = require("helmet");
-const mysql = require('mysql2');
+const database = require('./models/data-base');
+
 require('dotenv').config()
 
-//connection mysql
-const db = mysql.createConnection({
-  host: "localhost",
-  user: process.env.USER_DATABASE,
-  password: process.env.PWD_DATABASE,
-  database: "groupomania"
-});
 
-db.connect(function(err) {
+database.connect(function(err) {
   if (err) throw err;
   console.log("Connecté à la base de données MySQL!");
 });
+
 
 const app = express();
 

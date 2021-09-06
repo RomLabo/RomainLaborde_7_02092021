@@ -38,12 +38,12 @@ export class AuthService {
                 { user: user })
             .subscribe(
                 () => {
-                    this.isAuth = true;
-                    console.log('user enregistré');
-                    resolve(true);
-                }, (error) => reject(error)
-            );
-            
+                  this.login(user.email, user.password)
+                    .then(() => resolve(true))
+                    .catch((error) => reject(error));
+                },
+                (error) => reject(error)
+            );    
         });
     }
 }
