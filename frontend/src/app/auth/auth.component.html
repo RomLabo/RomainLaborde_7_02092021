@@ -1,5 +1,11 @@
-<div class="home-form">
-    <img class="home-form__img" src="../../assets/icon-above-font.png" alt="Logo de l'entreprise">
+<div class="home-main">
+    <div class="home-form">
+        <div class="home-background">
+            <img class="home-background__logo" src="../../assets/logo-xxl.png" alt="Logo de l'entreprise">
+            <img class="home-background__logo-title" src="../../assets/logo-title.png" alt="Nom de l'entreprise">
+            <p class="home-background__text">Avec votre réseau social d'entreprise préféré, partager et rester en contact</p>
+        </div>
+    </div>
     <form class="form-content" [formGroup]="userLogForm" (ngSubmit)="onLogin()">
         <input id="email" class="form-content__input" name="email" type="text" placeholder="Adresse e-mail" aria-label="Adresse e-mail" formControlName="email">
         <input id="password" class="form-content__input" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" formControlName="password">

@@ -6,20 +6,42 @@ input.ng-dirty.ng-invalid {
 input.ng-dirty.ng-valid {
     border: 3px solid green;
 }
+.home-main {
+    position: relative;
+}
+.home-form {
+    background-color: #ad9292;
+    padding: 6%;
+}
 
-
-
-.home-form{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 3% 0 0 0;
-    &__img {
-        width: 85%;
-        height: 85vh;
-        box-shadow: -30px 30px 30px #ad9292;
-        position: relative;
-        border-radius: 1.2rem;
+.home-background {
+    background-color: whitesmoke;
+    box-shadow: -30px 30px 30px #675757;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 85vh;
+    border-radius: 2rem;
+    &__logo {
+        position: absolute;
+        bottom: -24%;
+        left: -10%;
+        width: 55%;
+    }
+    &__logo-title {
+        position: absolute;
+        bottom: 4%;
+        left: 3%;
+        width: 55%;
+    }
+    &__text {
+        position: absolute;
+        top: 2%;
+        left: 2%;
+        font-size: 1.5rem;
+        width: 55%;
+        color: #675757;
+        font-family: 'RocknRoll One', sans-serif;
     }
 }
 
@@ -30,54 +52,76 @@ input.ng-dirty.ng-valid {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 1.5rem;
-    height: auto;
+    padding: 0 1rem 0 1rem;
+    height: 100%;
     width: 25%;
-    background-color: #d3b1b1;
-    border-radius: 0.5rem;
+    background-color: #ad9292;
     position: absolute;
-    top: 18vh;
-    right: 2%;
+    top: 0;
+    right: 13%;
     &__input {
         height: 2rem;
         width: 98%;
-        border-radius: 0.5rem;
-        border: 1px solid #c2a3a3;
+        border-radius: 0.3rem;
+        border: 2px solid #675757;
+        box-shadow: 2px 2px 9px #675757;
         font-size: 1.2rem;
+        font-family: 'RocknRoll One', sans-serif;
         &::placeholder {
             padding: 0 0 0 4px;
         }
         &:active, &:focus {
             outline: none;
-            box-shadow: 3px 3px 10px #ad9292;
+            border: 4px solid #675757;
         }
     }
     &__btn {
         height: 2.2rem;
-        width: 98%;
-        border-radius: 0.5rem;
+        width: 100%;
+        border-radius: 0.3rem;
         background-color: #fd2d01;
         border: none;
         text-decoration: none;
         color: rgb(26, 25, 25);
         display: flex;
         justify-content: center;
+        box-shadow: 2px 2px 9px #675757;
         align-items: center;
         font-size: 1.5rem;
+        font-family: 'RocknRoll One', sans-serif;
+        position: relative;
+        z-index: 1;
         &:disabled {
             opacity: 0.7;
+        }
+        &:hover {
+            &::after {
+                opacity: 1;
+            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            border-radius: 0.2rem;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle, lighten(#fd2d01, 5) 0%, darken(#fd2d01, 10) 100%);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 250ms;
         }
     }
 }
 
 
+
 @keyframes headshake {
     25% {
-        // entièrement à droite
         transform: translateX(2%);
     }
     75% {
-        // entièrement à gauche
         transform: translateX(2% * -1);
     }
 }
