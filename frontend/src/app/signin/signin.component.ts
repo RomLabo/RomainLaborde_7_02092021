@@ -32,6 +32,7 @@ export class SigninComponent implements OnInit {
     this.initForm();
   }
 
+  
   initForm() {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.maxLength(25), Validators.minLength(3), Validators.required, Validators.pattern(this.namePattern)]],
@@ -40,6 +41,12 @@ export class SigninComponent implements OnInit {
       password: ['', [Validators.maxLength(15), Validators.minLength(8), Validators.required]]
     });
   }
+
+  get name() { return this.userForm.get('name'); }
+  get firstName() { return this.userForm.get('firstName'); }
+  get email() { return this.userForm.get('email'); }
+  get password() { return this.userForm.get('password'); }
+
 
   onSignin() {
       const formValue = this.userForm.value;

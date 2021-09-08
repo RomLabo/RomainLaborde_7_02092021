@@ -1,11 +1,10 @@
 input.ng-dirty.ng-invalid {
-    border-width: 1px;
-    border-left: red solid 2%;
+    border: 3px solid #b20a37 ;
+    animation: headshake 100ms cubic-bezier(.4,.1,.6,.9) 2;
 }
 
 input.ng-dirty.ng-valid {
-    border-width: 1px;
-    border-left: green solid 2%;
+    border: 3px solid green;
 }
 
 .home-form{
@@ -46,6 +45,10 @@ input.ng-dirty.ng-valid {
         &::placeholder {
             padding: 0 0 0 4px;
         }
+        &:active, &:focus {
+            outline: none;
+            box-shadow: 3px 3px 10px #ad9292;
+        }
     }
     &__btn {
         height: 2.2rem;
@@ -62,5 +65,18 @@ input.ng-dirty.ng-valid {
         &:disabled {
             opacity: 0.7;
         }
+    }
+}
+
+
+
+@keyframes headshake {
+    25% {
+        // entièrement à droite
+        transform: translateX(2%);
+    }
+    75% {
+        // entièrement à gauche
+        transform: translateX(2% * -1);
     }
 }

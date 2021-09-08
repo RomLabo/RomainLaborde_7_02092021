@@ -1,3 +1,14 @@
+input.ng-dirty.ng-invalid {
+    border: 3px solid #b20a37 ;
+    animation: headshake 100ms cubic-bezier(.4,.1,.6,.9) 2;
+}
+
+input.ng-dirty.ng-valid {
+    border: 3px solid green;
+}
+
+
+
 .home-form{
     display: flex;
     justify-content: space-evenly;
@@ -36,6 +47,10 @@
         &::placeholder {
             padding: 0 0 0 4px;
         }
+        &:active, &:focus {
+            outline: none;
+            box-shadow: 3px 3px 10px #ad9292;
+        }
     }
     &__btn {
         height: 2.2rem;
@@ -52,5 +67,17 @@
         &:disabled {
             opacity: 0.7;
         }
+    }
+}
+
+
+@keyframes headshake {
+    25% {
+        // entièrement à droite
+        transform: translateX(2%);
+    }
+    75% {
+        // entièrement à gauche
+        transform: translateX(2% * -1);
     }
 }
