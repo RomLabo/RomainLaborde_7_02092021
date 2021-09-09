@@ -1,10 +1,10 @@
-<div class="home-main">
-    <div class="home-form">
-        <div class="home-background">
-            <img class="home-background__logo" src="../../assets/logo-xxl.png" alt="Logo de l'entreprise">
-            <img class="home-background__logo-title" src="../../assets/logo-title.png" alt="Nom de l'entreprise">
-            <p class="home-background__text">Avec votre réseau social d'entreprise préféré, partager et rester en contact</p>
+<div class="home-form">
+    <div class="home-background">
+        <div class="home-background__logo">
+            <img class="home-background-logo" src="../../assets/logo-xxl.png" alt="Logo de l'entreprise">
+            <img class="home-background-logo-title" src="../../assets/logo-title.png" alt="Nom de l'entreprise">
         </div>
+        <p class="home-background__text">Avec votre réseau social d'entreprise préféré, partager et rester en contact</p>
     </div>
     <form class="form-content" [formGroup]="userLogForm" (ngSubmit)="onLogin()">
         <input id="email" class="form-content__input" name="email" type="text" placeholder="Adresse e-mail" aria-label="Adresse e-mail" formControlName="email">
