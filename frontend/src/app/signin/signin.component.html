@@ -1,11 +1,6 @@
 <div class="home-form">
-    <div class="home-background">
-        <div class="home-background__logo">
-            <img class="home-background-logo" src="../../assets/logo-xxl.png" alt="Logo de l'entreprise">
-            <img class="home-background-logo-title" src="../../assets/logo-title.png" alt="Nom de l'entreprise">
-        </div>
-        <p class="home-background__text">Avec votre réseau social d'entreprise préféré, partager et rester en contact</p>
-    </div>
+    <img class="home-form__img" src="../../assets/home-background.png" alt="Image d'arrière plan">
+    <img class="home-form__logo" src="../../assets/logo-title.png" alt="Nom de l'entreprise">
     <form class="form-content" [formGroup]="userForm" (ngSubmit)="onSignin()">
         <input id="name" class="form-content__input" name="name" type="text" placeholder="Nom" aria-label="Nom" formControlName="name">
         <div *ngIf="name!.invalid && name!.dirty" class="invalid-message">
