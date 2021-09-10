@@ -16,6 +16,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { UserListComponent } from './user-list/user-list.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { PostListItemComponent } from './post-list-item/post-list-item.component';
+import { PostService } from './services/post.service';
 
 
 const appRoutes : Routes = [
@@ -33,7 +36,9 @@ const appRoutes : Routes = [
     SigninComponent,
     HomeComponent,
     NotFoundComponent,
-    UserListComponent
+    UserListComponent,
+    PostListComponent,
+    PostListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ const appRoutes : Routes = [
   providers: [
     AuthService,
     AuthGuard,
-    UserService
+    UserService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

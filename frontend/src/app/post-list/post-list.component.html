@@ -1,0 +1,10 @@
+<div class="post">
+    <h2>Fil d'actualité</h2>
+    <ul class="post-list"  *ngFor="let post of posts">
+      <app-post-list-item
+                            [postTitle]="post.title"
+                            [postContent]="post.content"
+                            [postLoveIts]="post.loveIts"
+                            [postDate]="post.created_at"></app-post-list-item>
+    </ul>
+</div>
