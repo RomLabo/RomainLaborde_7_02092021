@@ -8,4 +8,6 @@ router.post('/signin', userController.signin);
 
 router.post('/login', rateLimiter, userController.login);
 
+router.get('/home', userController.allPost);
+
 module.exports = router;

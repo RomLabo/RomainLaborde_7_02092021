@@ -1,23 +1,33 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
+
+
+
+@Injectable()
 export class PostService {
-    posts = [
-        {  
-          title: "lorem",  
-          content: "Salut tout le monde",  
-          loveIts: 2,  
-          created_at: new Date(Date.now())
+
+    postsSubject = new Subject<any[]>();
+
+    private posts: any[] = [];
+
+    constructor(private http: HttpClient) {}
+
+    emitPostsSubject() {
+      this.postsSubject.next(this.posts.slice());
+    }
+
+    getAllPost() {
+      this.http.get<any[]>(
+        'http://localhost:3000/api/auth/home')
+      .subscribe(
+        (response) => {
+          this.posts = response;
+          this.emitPostsSubject();
+          console.log(this.posts);
         },
-        {  
-          title: "ipso",  
-          content: "Comment allez vous ?",  
-          loveIts: 5,  
-          created_at: new Date(Date.now())
-        },
-        {  
-          title: "facto",  
-          content: "J'adore les chiens",  
-          loveIts: 8,  
-          created_at: new Date(Date.now())
-        }     
-    ]
+        (error) => {console.log(error);}
+    );
+    }
     
 }
