@@ -1,11 +1,10 @@
-<li class="list-group-item">
-    <h4>Post</h4>
+<li class="list-group-item" >
+    <div><!--<img><span>{{ postUser }}</span><span>{{ postDate | date }}</span>--></div>
+    <h4>Post<!--{{ postTitle}}--></h4>
     <p>{{ postContent }}</p>
     <!--<div>
         <span>{{ postLoveIts }}</span>
-        <span>{{ postDate | date }}</span>
     </div>-->
-    <input type="text" class="form-control" name="comments" id="comments">
-    <button>Commenter</button>
+    <a href="#"><!--routerLink="comments/:id"-->Commentaires</a>
     <button>Liker</button>
 </li>

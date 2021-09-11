@@ -19,7 +19,7 @@ export class PostService {
 
     getAllPost() {
       this.http.get<any[]>(
-        'http://localhost:3000/api/auth/home')
+        'http://localhost:3000/api/post')
       .subscribe(
         (response) => {
           this.posts = response;
@@ -31,3 +31,4 @@ export class PostService {
     }
     
 }
+

@@ -1,5 +1,6 @@
 const express = require('express');
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const helmet = require("helmet");
@@ -35,7 +36,7 @@ app.use(cookieSession({
   keys: [process.env.COOKIE_KEY]
 }))
 
-//app.use('/api/home', homeRoutes);
+app.use('/api/post', postRoutes);
 
 app.use('/api/auth', userRoutes);
 
