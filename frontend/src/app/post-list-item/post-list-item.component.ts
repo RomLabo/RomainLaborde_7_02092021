@@ -7,9 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PostListItemComponent implements OnInit {
 
-  //@Input() postTitle!: string;
+  @Input() postTitle!: string;
   @Input() postContent!: string;
-  //@Input() postLoveIts!: Number;
+  @Input() postLike!: Number;
+  @Input() postDislike!: Number;
+  @Input() postUser!: string;
   //@Input() postDate!: Date;
 
   constructor() { }

@@ -2,12 +2,17 @@
     <h2>Fil d'actualité</h2>
     <ul class="post-list"  >
       <app-post-list-item *ngFor="let post of posts" 
-                            [postContent]="post.content"></app-post-list-item>
+                            [postContent]="post.content"
+                            [postTitle]="post.title"
+                            [postLike]="post.like"
+                            [postDislike]="post.dislike"
+                            [postUser]="post.user_email">
+      </app-post-list-item>
     </ul>
 </div>
+<form class="form-content" [formGroup]="postForm" (ngSubmit)="onAddPost()">
+  <input id="post-title" class="form-content__input" name="post-title" type="text" aria-label="Titre du post" formControlName="postTitle">
+  <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="texte du post" formControlName="postText">
+  <button class="form-content__btn" name="addPost" type="submit">Ajouter un post</button>
+</form>
 
-<!--<app-post-list-item
-                            [postTitle]="post.title"
-                            [postContent]="post.content"
-                            [postLoveIts]="post.loveIts"
-                            [postDate]="post.created_at"></app-post-list-item>-->

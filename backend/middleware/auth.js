@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const user = decodedToken.user;
     if (req.body.email && req.body.email !== user) {
+      console.log(user);
+      console.log(req.body.email);
       throw 'Invalid user ID';
     } else {
       next();

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { AuthService } from "./auth.service";
 
 
 
@@ -24,10 +25,20 @@ export class PostService {
         (response) => {
           this.posts = response;
           this.emitPostsSubject();
-          console.log(this.posts);
         },
         (error) => {console.log(error);}
-    );
+      );
+    }
+
+    createPost(postTitle: string, postText: string) {
+      this.http.post('http://localhost:3000/api/post',
+                      {postTitle: postTitle, postText: postText})
+      .subscribe(
+        (response) => {
+          console.log(response)
+        },
+        (error) => {console.log(error);}
+      );
     }
     
 }

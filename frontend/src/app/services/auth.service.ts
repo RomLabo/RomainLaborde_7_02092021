@@ -8,6 +8,7 @@ import { Injectable } from "@angular/core";
 
 export class AuthService {
 
+
     constructor(private http: HttpClient) {}
 
     isAuth = false;
@@ -18,12 +19,17 @@ export class AuthService {
                 'http://localhost:3000/api/auth/login',
                 { email: email, password: password })
             .subscribe(
-                () => {
+                (response: any) => {
+                    if (response.token) {
+                        localStorage.setItem('token', response.token);
+                    }
                     this.isAuth = true;
-                    console.log('user connecté');
                     resolve(true);
-                }, (error) => reject(error)
-            );
+                },
+                (error) => {
+                reject(error);
+                }
+            );    
         });
     }
 
