@@ -8,6 +8,8 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class PostService {
 
+    public errorMessage!: string;
+
     postsSubject = new Subject<any[]>();
 
     private posts: any[] = [];
@@ -26,7 +28,7 @@ export class PostService {
           this.posts = response;
           this.emitPostsSubject();
         },
-        (error) => {console.log(error);}
+        (error) => {this.errorMessage = error.message;}
       );
     }
 
@@ -37,7 +39,7 @@ export class PostService {
         (response) => {
           console.log(response)
         },
-        (error) => {console.log(error);}
+        (error) => {this.errorMessage = error.message;}
       );
     }
     

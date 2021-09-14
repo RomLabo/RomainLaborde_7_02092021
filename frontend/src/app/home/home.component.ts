@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -9,10 +10,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     
+  }
+
+  onClickLogout() {
+    this.authService.logout()
   }
 
 }

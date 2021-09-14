@@ -49,17 +49,24 @@ export class SigninComponent implements OnInit {
 
 
   onSignin() {
-      const formValue = this.userForm.value;
-      const newUser = new User(
-        formValue['name'],
-        formValue['firstName'],
-        formValue['email'],
-        formValue['password']
-      );
-      this.authService.signin(newUser).then(() =>{
-        this.authStatus = this.authService.isAuth;
-        this.router.navigate(['home']);
+    const formValue = this.userForm.value;
+    const newUser = new User(
+      formValue['name'],
+      formValue['firstName'],
+      formValue['email'],
+      formValue['password']
+    );
+    this.authService.signin(newUser).subscribe((response: any) => {
+      this.authService.login(newUser.email, newUser.password).subscribe((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          this.authStatus = this.authService.isAuth;
+          this.router.navigate(['home']);
+        } else {
+          this.router.navigate(['']);
+        }
       });
+    })
   }
 
 }

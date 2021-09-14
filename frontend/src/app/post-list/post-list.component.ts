@@ -12,6 +12,8 @@ import { PostService } from '../services/post.service';
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
+  @Input() errorMessage!: string;
+
   posts: any[] = [];
   postSubscription: Subscription = new Subscription;
 
@@ -43,6 +45,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     const formValue = this.postForm.value;
     const titleForPost = formValue['postTitle'];
     const textForPost = formValue['postText'];
+    this.errorMessage = this.postService.errorMessage;
     this.postService.createPost(titleForPost, textForPost);
     this.postService.getAllPost();
   }

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 
 exports.getAllPosts = (req, res, next) => {
-    database.promise().query('SELECT * FROM Post')
+    database.promise().query('SELECT * FROM Post ORDER BY id DESC;')
       .then(data => {
         res.status(200).json((JSON.parse(JSON.stringify(data[0]))))
       })
@@ -20,3 +20,4 @@ exports.createPost = (req, res, next) => {
     res.status(201).json({ message: 'Post créer !' });
   });
 }
+

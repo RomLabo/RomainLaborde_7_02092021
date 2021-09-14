@@ -1,6 +1,7 @@
 import { User } from "../models/User.model";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
 
 @Injectable()
@@ -9,47 +10,28 @@ import { Injectable } from "@angular/core";
 export class AuthService {
 
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     isAuth = false;
 
     login(email: string, password: string) {
-        return new Promise ((resolve, reject) => {
-            this.http.post(
-                'http://localhost:3000/api/auth/login',
-                { email: email, password: password })
-            .subscribe(
-                (response: any) => {
-                    if (response.token) {
-                        localStorage.setItem('token', response.token);
-                    }
-                    this.isAuth = true;
-                    resolve(true);
-                },
-                (error) => {
-                reject(error);
-                }
-            );    
-        });
-    }
-
-    logout() {
-
+        this.isAuth = true;
+        return this.http.post(
+            'http://localhost:3000/api/auth/login',
+            { email: email, password: password })
+        ;
+        
     }
 
     signin(user: User) {
-        return new Promise ((resolve, reject) => {
-            this.http.post(
-                'http://localhost:3000/api/auth/signin',
-                { user: user })
-            .subscribe(
-                () => {
-                  this.login(user.email, user.password)
-                    .then(() => resolve(true))
-                    .catch((error) => reject(error));
-                },
-                (error) => reject(error)
-            );    
-        });
+        return this.http.post(
+            'http://localhost:3000/api/auth/signin',
+            { user: user })
+        ;    
+    }
+
+    logout() {
+        this.router.navigate(['']);
+        localStorage.removeItem('token');
     }
 }

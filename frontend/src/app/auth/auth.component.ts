@@ -39,15 +39,15 @@ export class AuthComponent implements OnInit {
     const formValue = this.userLogForm.value;
     const email = formValue['email'];
     const password = formValue['password'];
-
-    this.authService.login(email, password).then(() => {
-      this.authStatus = this.authService.isAuth;
-      this.router.navigate(['home']);
+    this.authService.login(email, password).subscribe((response: any) => {
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+        this.authStatus = this.authService.isAuth;
+        this.router.navigate(['home']);
+      } else {
+        this.router.navigate(['']);
+      }
     });
-  }
-
-  onLogout() {
-    this.authService.logout();
-  }
-
+  }    
 }
+

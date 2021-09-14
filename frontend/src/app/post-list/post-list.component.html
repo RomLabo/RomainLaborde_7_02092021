@@ -14,5 +14,6 @@
   <input id="post-title" class="form-content__input" name="post-title" type="text" aria-label="Titre du post" formControlName="postTitle">
   <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="texte du post" formControlName="postText">
   <button class="form-content__btn" name="addPost" type="submit">Ajouter un post</button>
+  <p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
 </form>
 
