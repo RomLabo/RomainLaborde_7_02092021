@@ -11,9 +11,10 @@ export class PostService {
     public errorMessage!: string;
 
     postsSubject = new Subject<any[]>();
-    postSubject = new Subject<any>();
+    commentsSubject = new Subject<any[]>();
 
     private posts: any[] = [];
+    private comments: any[] = [];
     public post: any;
 
     constructor(private http: HttpClient) {}
@@ -22,8 +23,8 @@ export class PostService {
       this.postsSubject.next(this.posts.slice());
     }
 
-    emitPostSubject() {
-      this.postSubject.next(this.post.slice());
+    emitCommentsSubject() {
+      this.commentsSubject.next(this.comments.slice());
     }
 
     getAllPost() {
@@ -50,12 +51,29 @@ export class PostService {
     }
 
     getOnePost(id: number) {
-      this.http.get(
-        'http://localhost:3000/api/post/:id' + id)
+      return this.http.get(
+        'http://localhost:3000/api/post/' + id)
+      ;
+    }
+
+    getAllComments(id: number) {
+      this.http.get<any[]>(
+        'http://localhost:3000/api/post/comments/' + id)
       .subscribe(
         (response) => {
-          this.post = response;
-          this.emitPostSubject();
+          this.comments = response;
+          this.emitCommentsSubject();
+        },
+        (error) => {this.errorMessage = error.message;}
+      );
+    }
+
+    createComment(id: number, commentText: string) {
+      this.http.post('http://localhost:3000/api/post/comments/' + id,
+                      {commentText: commentText})
+      .subscribe(
+        (response) => {
+          console.log(response)
         },
         (error) => {this.errorMessage = error.message;}
       );
@@ -63,3 +81,16 @@ export class PostService {
     
 }
 
+/*
+getOnePost(id: number) {
+      this.http.get(
+        'http://localhost:3000/api/post/' + id)
+      .subscribe(
+        (response) => {
+          this.post = response;
+          //this.emitPostSubject();
+        },
+        (error) => {this.errorMessage = error.message;}
+      );
+}
+*/

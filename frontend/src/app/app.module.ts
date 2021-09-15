@@ -14,14 +14,13 @@ import { SigninComponent } from './signin/signin.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './services/auth-guard.service';
-import { UserService } from './services/user.service';
-import { UserListComponent } from './user-list/user-list.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostListItemComponent } from './post-list-item/post-list-item.component';
 import { PostService } from './services/post.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { PostItemComponent } from './post-item/post-item.component';
 import { PostComponent } from './post/post.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 const appRoutes : Routes = [
@@ -29,7 +28,7 @@ const appRoutes : Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
   { path: 'post-item', canActivate: [AuthGuard], component: PostItemComponent},
-  { path: 'post', canActivate: [AuthGuard], component: PostComponent},
+  { path: 'home/:id', canActivate: [AuthGuard], component: PostComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' }
 ] 
@@ -41,11 +40,11 @@ const appRoutes : Routes = [
     SigninComponent,
     HomeComponent,
     NotFoundComponent,
-    UserListComponent,
     PostListComponent,
     PostListItemComponent,
     PostItemComponent,
-    PostComponent
+    PostComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +57,6 @@ const appRoutes : Routes = [
   providers: [
     AuthService,
     AuthGuard,
-    UserService,
     PostService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

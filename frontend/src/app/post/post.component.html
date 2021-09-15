@@ -1,2 +1,15 @@
-
-<p>{{ postTitle }}</p>
+<article>
+    <span>Posté par {{ postUserName }} {{ postUserFirstName }}</span>
+    <h4>{{ postTitle }}</h4>
+    <p>{{ postContent }}</p>
+</article>
+<form class="form-content" [formGroup]="commentForm" (ngSubmit)="onAddComment()">
+    <input id="comment-text" class="form-content__input" name="comment-text" type="text" aria-label="Texte du commentaire" formControlName="commentText">
+    <button class="form-content__btn" name="addComment" type="submit">Ajouter un commentaire</button>
+</form>
+<ul>
+    <app-comment *ngFor="let comment of comments"
+                    [commentUserName]="comment.user_name_comment"
+                    [commentUserFirstName]="comment.user_firstname_comment"
+                    [commentContent]="comment.content"></app-comment>
+</ul>

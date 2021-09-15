@@ -9,6 +9,10 @@ router.get('/', postController.getAllPosts);
 
 router.get('/:id', postController.getOnePost);
 
+router.get('/comments/:id', postController.getAllComments);
+
+router.post('/comments/:id', postController.createComment);
+
 router.post('/', postController.createPost);
 
 
