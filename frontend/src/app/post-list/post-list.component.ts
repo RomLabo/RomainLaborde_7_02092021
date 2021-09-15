@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PostService } from '../services/post.service';
 
@@ -17,12 +18,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: any[] = [];
   postSubscription: Subscription = new Subscription;
 
-  postForm: FormGroup = new FormGroup({
-    postTitle: new FormControl(''),
-    postText: new FormControl('')
-  });
 
-  constructor(private postService: PostService,  private formBuilder: FormBuilder) { }
+  constructor(private postService: PostService,  private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.postService.getAllPost();
@@ -31,27 +28,13 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.posts = posts;
       }
     );
-    this.initForm();
   }
 
-  initForm() {
-    this.postForm = this.formBuilder.group({
-      postTitle: ['', [Validators.minLength(3), Validators.required]],
-      postText: ['', [Validators.required]]
-    })
-  }
-
-  onAddPost() {
-    const formValue = this.postForm.value;
-    const titleForPost = formValue['postTitle'];
-    const textForPost = formValue['postText'];
-    this.errorMessage = this.postService.errorMessage;
-    this.postService.createPost(titleForPost, textForPost);
-    this.postService.getAllPost();
+  getCreatePostPage() {
+    this.router.navigate(['post-item']);
   }
 
   ngOnDestroy() {
     this.postSubscription.unsubscribe();
   }
-
 }

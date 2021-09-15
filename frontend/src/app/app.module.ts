@@ -20,12 +20,16 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostListItemComponent } from './post-list-item/post-list-item.component';
 import { PostService } from './services/post.service';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { PostItemComponent } from './post-item/post-item.component';
+import { PostComponent } from './post/post.component';
 
 
 const appRoutes : Routes = [
   { path: '', component: AuthComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
+  { path: 'post-item', canActivate: [AuthGuard], component: PostItemComponent},
+  { path: 'post', canActivate: [AuthGuard], component: PostComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' }
 ] 
@@ -39,7 +43,9 @@ const appRoutes : Routes = [
     NotFoundComponent,
     UserListComponent,
     PostListComponent,
-    PostListItemComponent
+    PostListItemComponent,
+    PostItemComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

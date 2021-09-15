@@ -12,11 +12,16 @@ export class PostListItemComponent implements OnInit {
   @Input() postLike!: Number;
   @Input() postDislike!: Number;
   @Input() postUser!: string;
+  @Input() postUserName!: string;
+  @Input() postUserFirstName!: string;
+  @Input() postId!: number;
+
   //@Input() postDate!: Date;
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

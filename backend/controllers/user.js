@@ -16,7 +16,7 @@ exports.signin = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  database.promise().query(`SELECT password FROM User WHERE email = '${req.body.email}';`)
+  database.promise().query(`SELECT * FROM User WHERE email = '${req.body.email}';`)
     .then((row) => {
       const userInfo = (JSON.parse(JSON.stringify(row[0])))[0];
       bcrypt.compare(req.body.password, userInfo.password)
@@ -25,6 +25,8 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
           res.status(200).json({
+            userName: userInfo.name,
+            userFirstName: userInfo.first_name,
             user: req.body.email,
             token: jwt.sign(
               { user: req.body.email },

@@ -11,13 +11,19 @@ export class PostService {
     public errorMessage!: string;
 
     postsSubject = new Subject<any[]>();
+    postSubject = new Subject<any>();
 
     private posts: any[] = [];
+    public post: any;
 
     constructor(private http: HttpClient) {}
 
     emitPostsSubject() {
       this.postsSubject.next(this.posts.slice());
+    }
+
+    emitPostSubject() {
+      this.postSubject.next(this.post.slice());
     }
 
     getAllPost() {
@@ -38,6 +44,18 @@ export class PostService {
       .subscribe(
         (response) => {
           console.log(response)
+        },
+        (error) => {this.errorMessage = error.message;}
+      );
+    }
+
+    getOnePost(id: number) {
+      this.http.get(
+        'http://localhost:3000/api/post/:id' + id)
+      .subscribe(
+        (response) => {
+          this.post = response;
+          this.emitPostSubject();
         },
         (error) => {this.errorMessage = error.message;}
       );

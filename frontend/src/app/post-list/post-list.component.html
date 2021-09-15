@@ -1,3 +1,6 @@
+<form class="form-content">
+  <input id="create-post-page" (click)="getCreatePostPage()" class="form-content__input" name="create-post-page" placeholder="Créer un post" type="text" aria-label="Créer un post">
+</form>
 <div class="post">
     <h2>Fil d'actualité</h2>
     <ul class="post-list"  >
@@ -6,14 +9,10 @@
                             [postTitle]="post.title"
                             [postLike]="post.like"
                             [postDislike]="post.dislike"
-                            [postUser]="post.user_email">
+                            [postUser]="post.user_email"
+                            [postUserName]="post.user_name"
+                            [postUserFirstName]="post.user_firstname"
+                            [postId]="post.id">
       </app-post-list-item>
     </ul>
 </div>
-<form class="form-content" [formGroup]="postForm" (ngSubmit)="onAddPost()">
-  <input id="post-title" class="form-content__input" name="post-title" type="text" aria-label="Titre du post" formControlName="postTitle">
-  <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="texte du post" formControlName="postText">
-  <button class="form-content__btn" name="addPost" type="submit">Ajouter un post</button>
-  <p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
-</form>
-
