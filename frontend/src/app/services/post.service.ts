@@ -78,6 +78,21 @@ export class PostService {
         (error) => {this.errorMessage = error.message;}
       );
     }
+
+    addLike(id: number, likeNumber: number) {
+      this.http.post(`http://localhost:3000/api/post/${+id}/like`,
+                    {likeNumber: likeNumber })
+      .subscribe(
+        (response) => {
+          console.log(response)
+        },
+        (error) => {this.errorMessage = error.message;}
+      )              
+    }
+
+    getPostLiker(id: number) {
+      return this.http.get('http://localhost:3000/api/post/like/' + id);
+    }
     
 }
 

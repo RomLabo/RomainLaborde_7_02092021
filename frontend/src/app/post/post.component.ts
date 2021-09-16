@@ -13,8 +13,7 @@ export class PostComponent implements OnInit, OnDestroy {
   
   @Input() postTitle!: string;
   @Input() postContent!: string;
-  //@Input() postLike!: Number;
-  //@Input() postDislike!: Number;
+  @Input() postLike!: Number;
   @Input() postUserName!: string;
   @Input() postUserFirstName!: string;
 
@@ -26,17 +25,31 @@ export class PostComponent implements OnInit, OnDestroy {
   public post: any;
   comments: any[] = [];
   commentSubscription: Subscription = new Subscription;
+  numberOfLike: number = 0;
+  @Input() likeOf: number = 0;
 
   constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.onGetOnePost();
+    this.onGetPostLiker();
+  }
+
+  initForm() {
+    this.commentForm = this.formBuilder.group({
+      commentText: ['', [Validators.minLength(3), Validators.required]]
+    })
+  }
+
+  onGetOnePost() {
     const id = this.route.snapshot.params['id'];
     this.postService.getOnePost(+id).subscribe((response: any) =>{
       if (response) {
         this.post = response;
         this.postTitle = this.post.title;
         this.postContent = this.post.content;
+        this.postLike = this.post.post_like;
         this.postUserName = this.post.user_name;
         this.postUserFirstName = this.post.user_firstname;
         this.postService.getAllComments(+id);
@@ -51,12 +64,6 @@ export class PostComponent implements OnInit, OnDestroy {
     })
   }
 
-  initForm() {
-    this.commentForm = this.formBuilder.group({
-      commentText: ['', [Validators.minLength(3), Validators.required]]
-    })
-  }
-
   onAddComment() {
     const id = this.route.snapshot.params['id'];
     const formValue = this.commentForm.value;
@@ -66,6 +73,34 @@ export class PostComponent implements OnInit, OnDestroy {
     this.commentSubscription = this.postService.commentsSubject.subscribe(
       (comments: any[]) => {
         this.comments = comments;
+      }
+    )
+    this.commentForm.reset();
+  }
+
+  onAddLike() {
+    this.numberOfLike === 1 ? this.numberOfLike-- : this.numberOfLike++;
+    const likeNumber = this.numberOfLike;
+    const id = this.route.snapshot.params['id'];
+    this.postService.addLike(+id, likeNumber);
+    this.onGetOnePost();
+  }
+
+  onAddDislike() {
+    (this.numberOfLike === -1) ? this.numberOfLike++ : this.numberOfLike--;
+    const likeNumber = this.numberOfLike;
+    const id = this.route.snapshot.params['id'];
+    this.postService.addLike(+id, likeNumber);
+    this.onGetOnePost();
+  }
+
+  onGetPostLiker() {
+    const id = this.route.snapshot.params['id'];
+    this.postService.getPostLiker(+id).subscribe(
+      (response: any) =>{
+        if (response) {
+          this.numberOfLike = response.user_like;
+        } 
       }
     )
   }

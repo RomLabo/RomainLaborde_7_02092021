@@ -15,6 +15,10 @@ router.post('/comments/:id', postController.createComment);
 
 router.post('/', postController.createPost);
 
+router.post('/:id/like', postController.createStateLike);
+
+router.get('/like/:id', postController.getOneLiker);
+
 
 
 

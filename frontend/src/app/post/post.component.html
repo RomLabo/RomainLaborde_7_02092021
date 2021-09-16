@@ -1,7 +1,11 @@
+<a [routerLink]="['/home']">Retour</a>
 <article>
     <span>Posté par {{ postUserName }} {{ postUserFirstName }}</span>
     <h4>{{ postTitle }}</h4>
     <p>{{ postContent }}</p>
+    <span>{{ postLike }}</span>
+    <button class="form-content__btn" name="addLike" type="button" [disabled]="numberOfLike == -1" (click)="onAddLike()">Liker</button>
+    <button class="form-content__btn" name="addDislike" type="button" [disabled]="numberOfLike == 1" (click)="onAddDislike()">Disliker</button>
 </article>
 <form class="form-content" [formGroup]="commentForm" (ngSubmit)="onAddComment()">
     <input id="comment-text" class="form-content__input" name="comment-text" type="text" aria-label="Texte du commentaire" formControlName="commentText">
