@@ -4,7 +4,7 @@
 <div class="post">
     <h2>Fil d'actualité</h2>
     <ul class="post-list"  >
-      <app-post-list-item class="list-group-item" *ngFor="let post of posts" 
+      <app-post-list-item class="list-group-item" *ngFor="let post of posts$ | async" 
                             [postContent]="post.content"
                             [postTitle]="post.title"
                             [postLike]="post.like"
@@ -12,6 +12,7 @@
                             [postUser]="post.user_email"
                             [postUserName]="post.user_name"
                             [postUserFirstName]="post.user_firstname"
+                            [postImageUrl]="post.image_url"
                             [postId]="post.id">
       </app-post-list-item>
     </ul>

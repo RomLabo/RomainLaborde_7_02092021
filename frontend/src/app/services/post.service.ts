@@ -39,9 +39,12 @@ export class PostService {
       );
     }
 
-    createPost(postTitle: string, postText: string) {
-      this.http.post('http://localhost:3000/api/post',
-                      {postTitle: postTitle, postText: postText})
+    createPost(postTitle: string, postText: string, dataImage: File) {
+      const thingData = new FormData();
+      thingData.append('postTitle', JSON.stringify(postTitle));
+      thingData.append('postText', JSON.stringify(postText));
+      thingData.append('image', dataImage);
+      this.http.post('http://localhost:3000/api/post', thingData)
       .subscribe(
         (response) => {
           console.log(response)

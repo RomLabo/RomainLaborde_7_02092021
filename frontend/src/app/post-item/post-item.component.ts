@@ -17,6 +17,9 @@ export class PostItemComponent implements OnInit {
     postTitle: new FormControl(''),
     postText: new FormControl('')
   });
+  fileName!: string;
+  dataImage!: any;
+  
 
   constructor(private postService: PostService,  private formBuilder: FormBuilder, private router: Router) { }
 
@@ -36,7 +39,17 @@ export class PostItemComponent implements OnInit {
     const titleForPost = formValue['postTitle'];
     const textForPost = formValue['postText'];
     this.errorMessage = this.postService.errorMessage;
-    this.postService.createPost(titleForPost, textForPost);
+    this.postService.createPost(titleForPost, textForPost, this.dataImage);
     this.router.navigate(['home']);
+  }
+
+  onFileSelected(event: any) {
+    const file:File = event.target.files[0];
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("thumbnail", file);
+      this.dataImage = file;
+    }
   }
 }

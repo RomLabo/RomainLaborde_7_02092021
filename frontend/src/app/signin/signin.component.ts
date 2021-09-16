@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validator, NgForm, Validators } fr
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/User.model';
+import { first } from 'rxjs/operators'
 
 
 @Component({
@@ -55,7 +56,7 @@ export class SigninComponent implements OnInit {
       formValue['email'],
       formValue['password']
     );
-    this.authService.signin(newUser).subscribe((response: any) => {
+    this.authService.signin(newUser).pipe(first()).subscribe((response: any) => {
       this.authService.login(newUser.email, newUser.password).subscribe((response: any) => {
         if (response.token) {
           localStorage.setItem('token', response.token);
@@ -69,3 +70,5 @@ export class SigninComponent implements OnInit {
   }
 
 }
+
+

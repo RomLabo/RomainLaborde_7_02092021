@@ -15,6 +15,7 @@ export class PostListItemComponent implements OnInit {
   @Input() postUserName!: string;
   @Input() postUserFirstName!: string;
   @Input() postId!: number;
+  @Input() postImageUrl!: string;
 
   //@Input() postDate!: Date;
 

@@ -1,6 +1,18 @@
 <form class="form-content" [formGroup]="postForm" (ngSubmit)="onAddPost()">
+    
     <input id="post-title" class="form-content__input" name="post-title" type="text" aria-label="Titre du post" formControlName="postTitle">
-    <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="Texte du post" formControlName="postText">
+    <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="Texte du post" formControlName="postText">  
     <button class="form-content__btn" name="addPost" type="submit">Ajouter un post</button>
     <p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
 </form>
+
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+    {{fileName || "No file uploaded yet."}}
+ 
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">Image</button>
+</div>
+
+

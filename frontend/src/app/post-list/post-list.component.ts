@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PostService } from '../services/post.service';
 
 
@@ -11,30 +11,20 @@ import { PostService } from '../services/post.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit, OnDestroy {
+export class PostListComponent {
 
   @Input() errorMessage!: string;
 
-  posts: any[] = [];
-  postSubscription: Subscription = new Subscription;
+  public readonly posts$: Observable<any[]>;
 
 
-  constructor(private postService: PostService,  private formBuilder: FormBuilder, private router: Router) { }
-
-  ngOnInit(): void {
+  constructor(private postService: PostService,  private formBuilder: FormBuilder, private router: Router) { 
     this.postService.getAllPost();
-    this.postSubscription = this.postService.postsSubject.subscribe(
-      (posts: any[]) => {
-        this.posts = posts;
-      }
-    );
-  }
+    this.posts$ = this.postService.postsSubject;
+  }  
 
+  
   getCreatePostPage() {
     this.router.navigate(['post-item']);
-  }
-
-  ngOnDestroy() {
-    this.postSubscription.unsubscribe();
   }
 }

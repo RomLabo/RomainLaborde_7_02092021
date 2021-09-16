@@ -31,8 +31,12 @@ exports.createPost = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
   const user = decodedToken.user;
-  database.query(`INSERT INTO Post (id, user_email, content, title, user_name, user_firstname) 
-    VALUES (NULL, '${user}', '${req.body.postText}', '${req.body.postTitle}', (SELECT name FROM User WHERE email='${user}'), (SELECT first_name FROM User WHERE email='${user}'));`, 
+  const reqHost = req.get('host');
+  const postTitle = JSON.parse(req.body.postTitle);
+  const postText = JSON.parse(req.body.postText);
+  const imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
+  database.query(`INSERT INTO Post (id, user_email, content, title, image_url, user_name, user_firstname) 
+    VALUES (NULL, '${user}', '${postText}', '${postTitle}', '${imageUrl}', (SELECT name FROM User WHERE email='${user}'), (SELECT first_name FROM User WHERE email='${user}'));`, 
     function (err, result) {
     if (err) throw err;
     res.status(201).json({ message: 'Post créer !' });
