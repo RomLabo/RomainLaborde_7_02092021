@@ -44,7 +44,8 @@ export class AuthComponent implements OnInit {
     this.authService.login(email, password).subscribe(
       (response: any) => {
         if (response.token) {
-          this.globalService.isAdmin = response.userIsAdmin.data[0]; 
+          this.globalService.isAdmin = response.userIsAdmin.data[0];
+          this.globalService.isUser = email; 
           localStorage.setItem('token', response.token);
           this.authStatus = this.authService.isAuth;
           this.router.navigate(['home']);

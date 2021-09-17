@@ -34,7 +34,10 @@ exports.createPost = (req, res, next) => {
   const reqHost = req.get('host');
   const postTitle = JSON.parse(req.body.postTitle);
   const postText = JSON.parse(req.body.postText);
-  const imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
+  let imageUrl = 'imageUrl';
+  if (req.file) {
+    imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
+  }
   database.query(`INSERT INTO Post (id, user_email, content, title, image_url, user_name, user_firstname) 
     VALUES (NULL, '${user}', '${postText}', '${postTitle}', '${imageUrl}', (SELECT name FROM User WHERE email='${user}'), (SELECT first_name FROM User WHERE email='${user}'));`, 
     function (err, result) {
@@ -115,6 +118,22 @@ exports.getOneLiker = (req, res, next) => {
   database.promise().query(`SELECT * FROM Like_state WHERE user_like_email= '${user}' AND post_id= ${req.params.id};`)
     .then(data => {
       res.status(200).json((JSON.parse(JSON.stringify(data[0])))[0])
+    })
+    .catch(error => res.status(500).json({ error }));
+}
+
+exports.deleteOnePost = (req, res, next) => {
+  database.promise().query(`DELETE FROM Post WHERE id= ${req.params.id};`)
+    .then(() => {
+      database.promise().query(`DELETE FROM Comment WHERE post_id= ${req.params.id};`)
+        .then(() => {
+          database.promise().query(`DELETE FROM Like_state WHERE post_id= ${req.params.id};`)
+            .then(() =>{
+              res.status(200).json({ message: 'Votre post a bien été supprimé'})
+            })
+            .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
 }

@@ -5,6 +5,8 @@ export class GlobalService {
   
     isAdmin!: number;
 
+    isUser!: string;
+
   constructor() {}
   
 }

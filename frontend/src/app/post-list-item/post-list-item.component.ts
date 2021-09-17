@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-post-list-item',
   templateUrl: './post-list-item.component.html',
@@ -10,7 +11,6 @@ export class PostListItemComponent implements OnInit {
   @Input() postTitle!: string;
   @Input() postContent!: string;
   @Input() postLike!: Number;
-  @Input() postDislike!: Number;
   @Input() postUser!: string;
   @Input() postUserName!: string;
   @Input() postUserFirstName!: string;
@@ -18,6 +18,8 @@ export class PostListItemComponent implements OnInit {
   @Input() postImageUrl!: string;
 
   //@Input() postDate!: Date;
+
+  
 
   constructor() { }
 

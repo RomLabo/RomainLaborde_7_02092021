@@ -96,6 +96,12 @@ export class PostService {
     getPostLiker(id: number) {
       return this.http.get('http://localhost:3000/api/post/like/' + id);
     }
+
+    deleteOnePost(id: number) {
+      return this.http.delete(
+        'http://localhost:3000/api/post/' + id)
+      ;
+    }
     
 }
 

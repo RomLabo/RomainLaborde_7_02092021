@@ -18,6 +18,8 @@ router.post('/:id/like', auth, postController.createStateLike);
 
 router.get('/like/:id', auth, postController.getOneLiker);
 
+router.delete('/:id', auth, postController.deleteOnePost);
+
 
 
 

@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GlobalService } from '../services/global.service';
 import { PostService } from '../services/post.service';
 
 @Component({
@@ -11,29 +12,41 @@ import { PostService } from '../services/post.service';
 })
 export class PostComponent implements OnInit, OnDestroy {
   
-  @Input() postTitle!: string;
-  @Input() postContent!: string;
-  @Input() postLike!: Number;
-  @Input() postUserName!: string;
-  @Input() postUserFirstName!: string;
+  postTitle!: string;
+  postContent!: string;
+  postLike!: Number;
+  postUserName!: string;
+  postUserFirstName!: string;
+  postUser!: string;
+  postImageUrl!: string;
 
 
   commentForm: FormGroup = new FormGroup({
     commentText: new FormControl(''),
   });
+  isAdmin!: number;
+  isUser!: string;
+  clickedDeletePost: boolean = false;
 
   public post: any;
   comments: any[] = [];
   commentSubscription: Subscription = new Subscription;
   numberOfLike: number = 0;
   @Input() likeOf: number = 0;
+  errorMessage!: string;
 
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(private postService: PostService,
+              private router: Router,
+              private route: ActivatedRoute, 
+              private formBuilder: FormBuilder, 
+              private globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.initForm();
     this.onGetOnePost();
     this.onGetPostLiker();
+    this.isAdmin = this.globalService.isAdmin;
+    this.isUser = this.globalService.isUser;
   }
 
   initForm() {
@@ -52,6 +65,8 @@ export class PostComponent implements OnInit, OnDestroy {
         this.postLike = this.post.post_like;
         this.postUserName = this.post.user_name;
         this.postUserFirstName = this.post.user_firstname;
+        this.postUser = this.post.user_email;
+        this.postImageUrl = this.post.image_url;
         this.postService.getAllComments(+id);
         this.commentSubscription = this.postService.commentsSubject.subscribe(
           (comments: any[]) => {
@@ -103,6 +118,24 @@ export class PostComponent implements OnInit, OnDestroy {
         } 
       }
     )
+  }
+
+  deleteClick() {
+    this.clickedDeletePost = true;
+  }
+
+  giveUpDelete() {
+    this.clickedDeletePost = false;
+  }
+
+  onDeleteOnePost() {
+    const id = this.route.snapshot.params['id'];
+    this.postService.deleteOnePost(+id).subscribe(
+      (response: any) => {
+        this.router.navigate(['home']);   
+      },
+      (error) => {this.errorMessage = error.error}
+    );
   }
 
   ngOnDestroy() {
