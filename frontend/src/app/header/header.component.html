@@ -1,0 +1,9 @@
+<header>
+    <img src="" alt="">
+    <nav>
+        <a [routerLink]="['/home']">Retour</a>
+        <a [routerLink]="['/profile']">Profil</a>
+        <button (click)="onClickLogout()">Déconexion</button>
+    </nav>
+    <p *ngIf="isAdmin === 1">Administrateur</p>
+</header>

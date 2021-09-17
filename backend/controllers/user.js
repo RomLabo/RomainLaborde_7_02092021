@@ -7,7 +7,7 @@ const database = require('../models/data-base');
 exports.signin = (req, res, next) => {
     bcrypt.hash(req.body.user.password, 10)
       .then(hash => {
-        database.query(`INSERT INTO User VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}', NULL);`, function (err, result) {
+        database.query(`INSERT INTO User VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}', NULL, 0);`, function (err, result) {
             if (err) throw err;
             res.status(201).json({ message: 'Utilisateur créer !' });
         }); 
@@ -28,6 +28,7 @@ exports.login = (req, res, next) => {
             userName: userInfo.name,
             userFirstName: userInfo.first_name,
             user: req.body.email,
+            userIsAdmin: userInfo.is_admin,
             token: jwt.sign(
               { user: req.body.email },
               process.env.SECRET_TOK,
@@ -37,5 +38,5 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));  
     })
-    .catch(error => res.status(401).json({ error }));
+    .catch(error => res.status(401).json({ error: 'Aucun utilisateur n\'est enregistré avec cette email' }));
 };

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validator, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,9 +18,10 @@ export class AuthComponent implements OnInit {
     password: new FormControl('')
   });
 
+  @Input() errorMessage!: string;
   authStatus: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private globalService: GlobalService) {
 
   }
 
@@ -39,15 +41,21 @@ export class AuthComponent implements OnInit {
     const formValue = this.userLogForm.value;
     const email = formValue['email'];
     const password = formValue['password'];
-    this.authService.login(email, password).subscribe((response: any) => {
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-        this.authStatus = this.authService.isAuth;
-        this.router.navigate(['home']);
-      } else {
-        this.router.navigate(['']);
+    this.authService.login(email, password).subscribe(
+      (response: any) => {
+        if (response.token) {
+          this.globalService.isAdmin = response.userIsAdmin.data[0]; 
+          localStorage.setItem('token', response.token);
+          this.authStatus = this.authService.isAuth;
+          this.router.navigate(['home']);
+        } else {
+          this.router.navigate(['']);
+        }
+      },
+      (error) => {
+        this.errorMessage = error.error.error;
       }
-    });
+    );
   }    
 }
 

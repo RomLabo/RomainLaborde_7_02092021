@@ -99,16 +99,4 @@ export class PostService {
     
 }
 
-/*
-getOnePost(id: number) {
-      this.http.get(
-        'http://localhost:3000/api/post/' + id)
-      .subscribe(
-        (response) => {
-          this.post = response;
-          //this.emitPostSubject();
-        },
-        (error) => {this.errorMessage = error.message;}
-      );
-}
-*/
+

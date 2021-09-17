@@ -21,6 +21,12 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { PostItemComponent } from './post-item/post-item.component';
 import { PostComponent } from './post/post.component';
 import { CommentComponent } from './comment/comment.component';
+import { HeaderComponent } from './header/header.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserService } from './services/user.service';
+import { GlobalService } from './services/global.service';
+
+
 
 
 const appRoutes : Routes = [
@@ -28,6 +34,7 @@ const appRoutes : Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
   { path: 'post-item', canActivate: [AuthGuard], component: PostItemComponent},
+  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent},
   { path: 'home/:id', canActivate: [AuthGuard], component: PostComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' }
@@ -44,7 +51,9 @@ const appRoutes : Routes = [
     PostListItemComponent,
     PostItemComponent,
     PostComponent,
-    CommentComponent
+    CommentComponent,
+    HeaderComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,8 @@ const appRoutes : Routes = [
   providers: [
     AuthService,
     AuthGuard,
+    UserService,
+    GlobalService,
     PostService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

@@ -6,5 +6,6 @@
         <input id="password" class="form-content__input" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" formControlName="password">
         <button class="form-content__btn" name="login" type="submit" [disabled]="userLogForm.invalid">Se connecter</button>
         <a routerLink="signin" class="form-content__btn">S'inscrire</a>
+        <p>{{ errorMessage }}</p>
     </form>
 </div>

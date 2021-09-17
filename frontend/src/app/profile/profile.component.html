@@ -1,0 +1,10 @@
+<article>
+    <h4>{{ userName }}</h4>
+    <p>{{ userFirstName }}</p>
+    <button type="button" id="deleteBtn" (click)="deleteClick()">Supprimer</button>
+    <div id="delete-div" *ngIf="clickedBouton === true">
+        Etes vous sur de vouloir supprimer votre profil ?
+        <button (click)="onDeleteProfile()">Oui</button>
+        <button (click)="giveUpDelete()">Non</button>
+    </div>
+</article>

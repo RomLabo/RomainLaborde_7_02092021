@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
+const profileRoutes = require('./routes/profile');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const helmet = require("helmet");
@@ -37,6 +38,8 @@ app.use(cookieSession({
 }))
 
 app.use('/api/post', postRoutes);
+
+app.use('/api/profile', profileRoutes);
 
 app.use('/api/auth', userRoutes);
 
