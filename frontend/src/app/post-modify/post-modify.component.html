@@ -15,3 +15,6 @@
  
     <button class="upload-btn" (click)="fileUpload.click()">Image</button>
 </div>
+<div class="image-preview" *ngIf="imagePreview">
+    <img [src]="imagePreview" alt="">
+</div>

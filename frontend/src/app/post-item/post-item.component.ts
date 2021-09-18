@@ -12,6 +12,7 @@ import { PostService } from '../services/post.service';
 export class PostItemComponent implements OnInit {
 
   @Input() errorMessage!: string;
+  @Input() imagePreview!: string;
 
   postForm: FormGroup = new FormGroup({
     postTitle: new FormControl(''),
@@ -35,9 +36,10 @@ export class PostItemComponent implements OnInit {
   }
 
   onAddPost() {
+    const inputRegExp = /'/g;
     const formValue = this.postForm.value;
-    const titleForPost = formValue['postTitle'];
-    const textForPost = formValue['postText'];
+    const titleForPost = inputRegExp[Symbol.replace](formValue['postTitle'], "\\'");
+    const textForPost = inputRegExp[Symbol.replace](formValue['postText'], "\\'");
     this.errorMessage = this.postService.errorMessage;
     this.postService.createPost(titleForPost, textForPost, this.dataImage);
     this.router.navigate(['home']);
@@ -50,6 +52,11 @@ export class PostItemComponent implements OnInit {
       const formData = new FormData();
       formData.append("thumbnail", file);
       this.dataImage = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+          this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
     }
   }
 }

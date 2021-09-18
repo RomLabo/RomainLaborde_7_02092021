@@ -3,13 +3,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
+import { GlobalService } from "./global.service";
 
 
 @Injectable()
 
 export class AuthService {
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router, private globalService: GlobalService) {}
 
     isAuth = false;
 
@@ -30,7 +31,8 @@ export class AuthService {
     }
 
     logout() {
-        this.router.navigate(['']);
+        this.globalService.isAdmin = 0;
         localStorage.removeItem('token');
+        this.router.navigate(['']);
     }
 }
