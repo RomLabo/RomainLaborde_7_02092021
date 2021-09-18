@@ -9,3 +9,20 @@
         <button (click)="giveUpDelete()">Non</button>
     </div>
 </article>
+<div *ngIf="isAdmin === 1">
+    <form class="form-content" [formGroup]="searchForm" (ngSubmit)="onGetOneProfile()">
+        <input id="search-user" class="form-content__input" name="search-user" type="text" aria-label="Recherche un utilisateur" formControlName="searchUser">
+        <button class="form-content__btn" name="addComment" type="submit">Rechercher utilisateur</button>
+        <p>{{ errorMessage }}</p>
+    </form>
+    <div *ngIf="userSearched != null ">
+        <h4>{{ userSearchedName }}</h4>
+        <p>{{ userSearchedFirstName }}</p>
+        <button (click)="adminDeleteClick()">Supprimer</button>
+        <div *ngIf="adminClickedBouton === true">
+            Etes vous sur de vouloir supprimer ce post ?
+            <button (click)="onDeleteOneProfile()">Oui</button>
+            <button (click)="adminGiveUpDelete()">Non</button>
+        </div>
+    </div>
+</div>

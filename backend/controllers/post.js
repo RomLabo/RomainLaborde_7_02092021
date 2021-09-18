@@ -46,6 +46,29 @@ exports.createPost = (req, res, next) => {
   });
 }
 
+exports.modifyPost = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+  const user = decodedToken.user;
+  const reqHost = req.get('host');
+  const postTitle = JSON.parse(req.body.postTitle);
+  const postText = JSON.parse(req.body.postText);
+  if (req.file) {
+    imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
+    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}', image_url='${imageUrl}' WHERE id=${req.params.id};`, 
+      function (err, result) {
+      if (err) throw err;
+      res.status(201).json({ message: 'Post modifier !' });
+    });
+  } else {
+    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}' WHERE id=${req.params.id};`, 
+      function (err, result) {
+      if (err) throw err;
+      res.status(201).json({ message: 'Post modifier !' });
+    });
+  }
+}
+
 exports.createComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
@@ -134,6 +157,14 @@ exports.deleteOnePost = (req, res, next) => {
             .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }));
+}
+
+exports.deleteOneComment = (req, res, next) => {
+  database.promise().query(`DELETE FROM Comment WHERE id= ${req.params.id};`)
+    .then(() =>{
+      res.status(200).json({ message: 'Le commentaire a bien été supprimé'})
     })
     .catch(error => res.status(500).json({ error }));
 }

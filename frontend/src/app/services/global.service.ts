@@ -7,6 +7,8 @@ export class GlobalService {
 
     isUser!: string;
 
+    tooltip!: string;
+
   constructor() {}
   
 }

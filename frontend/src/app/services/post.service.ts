@@ -53,6 +53,20 @@ export class PostService {
       );
     }
 
+    modifyPost(postTitle: string, postText: string, dataImage: File, id: number) {
+      const thingData = new FormData();
+      thingData.append('postTitle', JSON.stringify(postTitle));
+      thingData.append('postText', JSON.stringify(postText));
+      thingData.append('image', dataImage);
+      this.http.put('http://localhost:3000/api/post/'+ id, thingData)
+      .subscribe(
+        (response) => {
+          console.log(response)
+        },
+        (error) => {this.errorMessage = error.message;}
+      );
+    }
+
     getOnePost(id: number) {
       return this.http.get(
         'http://localhost:3000/api/post/' + id)
@@ -103,6 +117,11 @@ export class PostService {
       ;
     }
     
+    deleteOneComment(id: number) {
+      return this.http.delete(
+        'http://localhost:3000/api/post/comments/' + id)
+      ;
+    }
 }
 
 

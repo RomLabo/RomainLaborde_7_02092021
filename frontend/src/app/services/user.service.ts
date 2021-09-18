@@ -11,9 +11,11 @@ export class UserService {
     constructor(private http: HttpClient, private router: Router) {}
 
     getProfile() {
-      return this.http.get<Object>(
-          'http://localhost:3000/api/profile')
-      ;  
+      return this.http.get<Object>('http://localhost:3000/api/profile');  
+    }
+
+    getOneProfile(id: string) {
+      return this.http.get<Object>('http://localhost:3000/api/profile/' + id)
     }
 
     deleteProfile() {
@@ -25,6 +27,10 @@ export class UserService {
         },
         (error) => {this.errorMessage = error.message;}
       );
+    }
+
+    deleteOneProfile(id: string) {
+      return this.http.delete('http://localhost:3000/api/profile/' + id)
     }
     
 }

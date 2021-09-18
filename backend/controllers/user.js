@@ -38,5 +38,5 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));  
     })
-    .catch(error => res.status(401).json({ error: 'Aucun utilisateur n\'est enregistré avec cette email' }));
+    .catch(error => res.status(404).json({ error: 'Aucun utilisateur n\'est enregistré avec cette email' }));
 };

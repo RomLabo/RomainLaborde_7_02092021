@@ -4,7 +4,9 @@
             <span>Posté par {{ postUserName }} {{ postUserFirstName }}.</span>
             <!--<span>{{ postDate | date }}</span>--></div>
         <h4>{{ postTitle}}</h4>
-        <img *ngIf="postImageUrl !== 'imageUrl'" [src]="postImageUrl" alt="L'image du post" class="list-img">
+        <div *ngIf="postImageUrl !== 'imageUrl'">
+            <img [src]="postImageUrl" alt="L'image du post" class="list-img">
+        </div>
         <p>{{ postContent }}</p>
         <div>
             <span>{{ postLike }}</span>

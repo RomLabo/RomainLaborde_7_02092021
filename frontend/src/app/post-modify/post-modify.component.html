@@ -1,9 +1,9 @@
 <app-header></app-header>
-<form class="form-content" [formGroup]="postForm" (ngSubmit)="onAddPost()">
+<form class="form-content" [formGroup]="postForm" (ngSubmit)="onModifyPost()">
     
     <input id="post-title" class="form-content__input" name="post-title" type="text" aria-label="Titre du post" formControlName="postTitle">
     <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="Texte du post" formControlName="postText">  
-    <button class="form-content__btn" name="addPost" type="submit">Ajouter un post</button>
+    <button class="form-content__btn" name="addPost" type="submit">Modifier</button>
     <p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
 </form>
 
@@ -15,5 +15,3 @@
  
     <button class="upload-btn" (click)="fileUpload.click()">Image</button>
 </div>
-
-

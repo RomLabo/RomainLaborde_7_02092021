@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -34,6 +34,7 @@ export class PostComponent implements OnInit, OnDestroy {
   numberOfLike: number = 0;
   @Input() likeOf: number = 0;
   errorMessage!: string;
+  
 
   constructor(private postService: PostService,
               private router: Router,

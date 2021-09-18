@@ -7,7 +7,11 @@ const auth = require('../middleware/auth');
 
 router.get('/', auth, profileController.getProfile);
 
+router.get('/:id', auth, profileController.getOneProfile);
+
 router.delete('/', auth, profileController.deleteProfile);
+
+router.delete('/:id', auth, profileController.deleteOneProfile);
 
 
 module.exports = router;

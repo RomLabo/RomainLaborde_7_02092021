@@ -10,18 +10,21 @@ router.get('/:id', auth, postController.getOnePost);
 
 router.get('/comments/:id', auth, postController.getAllComments);
 
-router.post('/comments/:id', auth, postController.createComment);
+router.get('/like/:id', auth, postController.getOneLiker);
+
 
 router.post('/', auth, multer, postController.createPost);
 
+router.post('/comments/:id', auth, postController.createComment);
+
 router.post('/:id/like', auth, postController.createStateLike);
 
-router.get('/like/:id', auth, postController.getOneLiker);
+
+router.put('/:id', auth, multer, postController.modifyPost);
+
 
 router.delete('/:id', auth, postController.deleteOnePost);
 
-
-
-
+router.delete('/comments/:id', auth, postController.deleteOneComment);
 
 module.exports = router;

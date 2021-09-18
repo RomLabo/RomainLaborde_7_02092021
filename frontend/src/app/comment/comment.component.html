@@ -1,4 +1,12 @@
 <li>
-    <span>Commenté par {{ commentUserName }} {{ commentUserFirstName }}</span>
+    <span>Commenté par {{ commentUserName }} {{ commentUserFirstName }}</span><span *ngIf="isAdmin === 1">{{ commentUserMail }}</span>
     <p>{{ commentContent }}</p>
+    <div *ngIf="isAdmin === 1">
+        <button (click)="deleteClick()">Supprimer</button>
+        <div *ngIf="clickedDeleteComment === true">
+            Etes vous sur de vouloir supprimer ce post ?
+            <button (click)="onDeleteOneComment()">Oui</button>
+            <button (click)="giveUpDelete()">Non</button>
+        </div>
+    </div>
 </li>

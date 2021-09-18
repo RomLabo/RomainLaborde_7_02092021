@@ -1,6 +1,6 @@
-<a [routerLink]="['/home']">Retour</a>
+<app-header></app-header>
 <article>
-    <span>Posté par {{ postUserName }} {{ postUserFirstName }}</span>
+    <span>Posté par {{ postUserName }} {{ postUserFirstName }}</span><span *ngIf="isAdmin === 1">{{ postUser }}</span>
     <h4>{{ postTitle }}</h4>
     <img *ngIf="postImageUrl !== 'imageUrl'" [src]="postImageUrl" alt="L'image du post" class="list-img">
     <p>{{ postContent }}</p>
@@ -9,6 +9,7 @@
     <button class="form-content__btn" name="addDislike" type="button" [disabled]="numberOfLike == 1" (click)="onAddDislike()">Disliker</button>
     <div *ngIf="isAdmin === 1 || isUser === postUser">
         <button (click)="deleteClick()">Supprimer</button>
+        <a *ngIf="isUser === postUser" [routerLink]="['modify']">Modifier</a>
         <div *ngIf="clickedDeletePost === true">
             Etes vous sur de vouloir supprimer ce post ?
             <button (click)="onDeleteOnePost()">Oui</button>
@@ -25,5 +26,8 @@
     <app-comment *ngFor="let comment of comments"
                     [commentUserName]="comment.user_name_comment"
                     [commentUserFirstName]="comment.user_firstname_comment"
-                    [commentContent]="comment.content"></app-comment>
+                    [commentContent]="comment.content"
+                    [commentId]="comment.id"
+                    [commentUserMail]="comment.user_email_comment">
+    </app-comment>
 </ul>

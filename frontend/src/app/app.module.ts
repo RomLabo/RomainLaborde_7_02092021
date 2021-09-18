@@ -25,17 +25,16 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserService } from './services/user.service';
 import { GlobalService } from './services/global.service';
-
-
-
+import { PostModifyComponent } from './post-modify/post-modify.component';
 
 const appRoutes : Routes = [
   { path: '', component: AuthComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
-  { path: 'post-item', canActivate: [AuthGuard], component: PostItemComponent},
-  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent},
-  { path: 'home/:id', canActivate: [AuthGuard], component: PostComponent},
+  { path: 'post-item', canActivate: [AuthGuard], component: PostItemComponent },
+  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
+  { path: 'home/:id', canActivate: [AuthGuard], component: PostComponent },
+  { path: 'home/:id/modify', canActivate: [AuthGuard], component: PostModifyComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' }
 ] 
@@ -53,7 +52,8 @@ const appRoutes : Routes = [
     PostComponent,
     CommentComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostModifyComponent
   ],
   imports: [
     BrowserModule,
