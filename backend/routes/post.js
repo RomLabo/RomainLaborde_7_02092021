@@ -3,6 +3,7 @@ const router = express.Router();
 const postController = require('../controllers/post');
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
+const authAdmin = require('../middleware/auth-admin');
 
 router.get('/', auth, postController.getAllPosts);
 
@@ -25,6 +26,6 @@ router.put('/:id', auth, multer, postController.modifyPost);
 
 router.delete('/:id', auth, postController.deleteOnePost);
 
-router.delete('/comments/:id', auth, postController.deleteOneComment);
+router.delete('/comments/:id', auth, authAdmin, postController.deleteOneComment);
 
 module.exports = router;

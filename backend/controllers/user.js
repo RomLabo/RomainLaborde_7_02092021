@@ -7,7 +7,7 @@ const database = require('../models/data-base');
 exports.signin = (req, res, next) => {
     bcrypt.hash(req.body.user.password, 10)
       .then(hash => {
-        database.query(`INSERT INTO User VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}', NULL, 0);`, function (err, result) {
+        database.query(`INSERT INTO User (email, password, name, first_name) VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}');`, function (err, result) {
             if (err) throw err;
             res.status(201).json({ message: 'Utilisateur créer !' });
         }); 
@@ -30,9 +30,9 @@ exports.login = (req, res, next) => {
             user: req.body.email,
             userIsAdmin: userInfo.is_admin,
             token: jwt.sign(
-              { user: req.body.email },
+              { user: req.body.email, userIsAdmin: userInfo.is_admin },
               process.env.SECRET_TOK,
-              { expiresIn: '1h' }
+              { expiresIn: '5h' }
             )
           });
         })

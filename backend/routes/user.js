@@ -4,7 +4,7 @@ const userController = require('../controllers/user');
 const validPassword = require('../middleware/valid-password');
 const rateLimiter = require('../middleware/rate-limiter');
 
-router.post('/signin', userController.signin);
+router.post('/signin', validPassword, userController.signin);
 
 router.post('/login', rateLimiter, userController.login);
 

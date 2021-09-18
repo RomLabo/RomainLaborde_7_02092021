@@ -55,13 +55,13 @@ exports.modifyPost = (req, res, next) => {
   const postText = JSON.parse(req.body.postText);
   if (req.file) {
     imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
-    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}', image_url='${imageUrl}' WHERE id=${req.params.id};`, 
+    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}', image_url='${imageUrl}' WHERE id=${req.params.id} AND user_email='${user}';`, 
       function (err, result) {
       if (err) throw err;
       res.status(201).json({ message: 'Post modifier !' });
     });
   } else {
-    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}' WHERE id=${req.params.id};`, 
+    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}' WHERE id=${req.params.id} AND user_email='${user}';`, 
       function (err, result) {
       if (err) throw err;
       res.status(201).json({ message: 'Post modifier !' });
@@ -146,7 +146,12 @@ exports.getOneLiker = (req, res, next) => {
 }
 
 exports.deleteOnePost = (req, res, next) => {
-  database.promise().query(`DELETE FROM Post WHERE id= ${req.params.id};`)
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+  const user = decodedToken.user;
+  const userAdmin = decodedToken.userIsAdmin;
+  if (userAdmin === 1 ) {
+    database.promise().query(`DELETE FROM Post WHERE id= ${req.params.id};`)
     .then(() => {
       database.promise().query(`DELETE FROM Comment WHERE post_id= ${req.params.id};`)
         .then(() => {
@@ -159,6 +164,21 @@ exports.deleteOnePost = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
+  } else {
+    database.promise().query(`DELETE FROM Post WHERE id= ${req.params.id} AND user_email='${user}';`)
+    .then(() => {
+      database.promise().query(`DELETE FROM Comment WHERE post_id= ${req.params.id};`)
+        .then(() => {
+          database.promise().query(`DELETE FROM Like_state WHERE post_id= ${req.params.id};`)
+            .then(() =>{
+              res.status(200).json({ message: 'Votre post a bien été supprimé'})
+            })
+            .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }));
+  }
 }
 
 exports.deleteOneComment = (req, res, next) => {
