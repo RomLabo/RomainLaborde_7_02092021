@@ -58,7 +58,6 @@ export class PostComponent implements OnInit, OnDestroy {
 
   onGetOnePost() {
     const id = this.route.snapshot.params['id'];
-    const outputRegExp = /€u0/g;
     this.postService.getOnePost(+id).subscribe((response: any) =>{
       if (response) {
         this.post = response;

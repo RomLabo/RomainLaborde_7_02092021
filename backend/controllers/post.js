@@ -13,15 +13,16 @@ exports.getAllPosts = (req, res, next) => {
 }
 
 exports.getOnePost = (req, res, next) => {
-  database.promise().query(`SELECT * FROM Post WHERE id= ${req.params.id};`)
-    .then(data => {
-      res.status(200).json((JSON.parse(JSON.stringify(data[0])))[0])
-    })
-    .catch(error => res.status(500).json({ error }));
+  database.promise().query(`SELECT * FROM Post WHERE id= ?`, [req.params.id])
+  .then(data => {
+    res.status(200).json((JSON.parse(JSON.stringify(data[0])))[0])
+  })
+  .catch(error => res.status(500).json({ error }));
 }
 
+
 exports.getAllComments = (req, res, next) => {
-  database.promise().query(`SELECT * FROM Comment WHERE post_id= ${req.params.id} ORDER BY id DESC;`)
+  database.promise().query(`SELECT * FROM Comment WHERE post_id= ? ORDER BY id DESC;`, [req.params.id])
       .then(data => {
         res.status(200).json((JSON.parse(JSON.stringify(data[0]))))
       })
@@ -40,7 +41,8 @@ exports.createPost = (req, res, next) => {
     imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
   }
   database.query(`INSERT INTO Post (id, user_email, content, title, image_url, user_name, user_firstname) 
-    VALUES (NULL, '${user}', '${postText}', '${postTitle}', '${imageUrl}', (SELECT name FROM User WHERE email='${user}'), (SELECT first_name FROM User WHERE email='${user}'));`, 
+    VALUES (NULL, ?, ?, ?, ?, (SELECT name FROM User WHERE email= ?), (SELECT first_name FROM User WHERE email= ?));`,
+    [user, postText, postTitle, imageUrl, user, user], 
     function (err, result) {
     if (err) throw err;
     res.status(201).json({ message: 'Post créer !' });
@@ -56,7 +58,7 @@ exports.modifyPost = (req, res, next) => {
   const postText = JSON.parse(req.body.postText);
   if (req.file) {
     imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
-    database.query(`UPDATE Post SET content='${postText}', title='${postTitle}', image_url='${imageUrl}' WHERE id=${req.params.id} AND user_email='${user}';`, 
+    database.query(`UPDATE Post SET content= ?, title= ?, image_url= ? WHERE id= ? AND user_email= ?;`, [postText, postTitle, imageUrl, req.params.id, user], 
       function (err, result) {
       if (err) throw err;
       res.status(201).json({ message: 'Post modifier !' });
@@ -75,7 +77,8 @@ exports.createComment = (req, res, next) => {
   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
   const user = decodedToken.user;
   database.query(`INSERT INTO Comment (id, post_id, user_email_comment, content, user_name_comment, user_firstname_comment) 
-    VALUES (NULL, ${req.params.id}, '${user}', '${req.body.commentText}', (SELECT name FROM User WHERE email='${user}'), (SELECT first_name FROM User WHERE email='${user}'));`, 
+    VALUES (NULL, ?, ?, ?, (SELECT name FROM User WHERE email= ?), (SELECT first_name FROM User WHERE email= ?));`,
+    [req.params.id, user, req.body.commentText, user, user], 
     function (err, result) {
     if (err) throw err;
     res.status(201).json({ message: 'Commentaire créer !' });
@@ -88,22 +91,22 @@ exports.createStateLike = (req, res, next) => {
   const user = decodedToken.user;
   switch (req.body.likeNumber) {
     case 0 :
-      database.promise().query(`SELECT * FROM Like_state WHERE user_like_email= '${user}';`)
+      database.promise().query(`SELECT * FROM Like_state WHERE user_like_email= ?;`, [user])
         .then(data => {
           const userLike = (JSON.parse(JSON.stringify(data[0])))[0];
           const userLikeStatus = userLike.user_like;
           if (userLikeStatus === 1) {
-            database.query(`UPDATE Post SET post_like =post_like - 1 WHERE id= ${req.params.id}`,
+            database.query(`UPDATE Post SET post_like =post_like - 1 WHERE id= ?`, [req.params.id],
               function (err, result) {
               if (err) throw err;
-              database.promise().query(`DELETE FROM Like_state WHERE user_like_email= '${user}';`)
+              database.promise().query(`DELETE FROM Like_state WHERE user_like_email= ?;`,[user])
               res.status(201).json({ message: 'Votre vote a été annulé !' });
             })
           } else {
-            database.query(`UPDATE Post SET post_like =post_like + 1 WHERE id= ${req.params.id}`,
+            database.query(`UPDATE Post SET post_like =post_like + 1 WHERE id= ?`,[req.params.id],
               function (err, result) {
               if (err) throw err;
-              database.promise().query(`DELETE FROM Like_state WHERE user_like_email= '${user}';`)
+              database.promise().query(`DELETE FROM Like_state WHERE user_like_email= ?;`,[user])
               res.status(201).json({ message: 'Votre vote a été annulé !' });
             })
           }
@@ -111,10 +114,10 @@ exports.createStateLike = (req, res, next) => {
         .catch(error => res.status(500).json({ error })); 
       break; 
     case 1:
-      database.query(`UPDATE Post SET post_like = post_like + 1 WHERE id= ${req.params.id}`, 
+      database.query(`UPDATE Post SET post_like = post_like + 1 WHERE id= ?`,[req.params.id], 
         function (err, result) {
         if (err) throw err;
-        database.query(`INSERT INTO Like_state (user_like_email, post_id, user_like) VALUES ('${user}', ${req.params.id}, ${req.body.likeNumber})`, 
+        database.query(`INSERT INTO Like_state (user_like_email, post_id, user_like) VALUES (?, ?, ?)`,[user, req.params.id, req.body.likeNumber], 
           function (err, result) {
           if (err) throw err;
           res.status(201).json({ message: 'Votre vote a bien été enregistré !' });
@@ -122,10 +125,10 @@ exports.createStateLike = (req, res, next) => {
       });
       break;
     case -1:
-      database.query(`UPDATE Post SET post_like =post_like - 1 WHERE id= ${req.params.id}`,
+      database.query(`UPDATE Post SET post_like =post_like - 1 WHERE id= ?`,[req.params.id],
         function (err, result) {
         if (err) throw err;
-        database.query(`INSERT INTO Like_state (user_like_email, post_id, user_like) VALUES ('${user}', ${req.params.id}, ${req.body.likeNumber})`, 
+        database.query(`INSERT INTO Like_state (user_like_email, post_id, user_like) VALUES (?, ?, ?)`,[user, req.params.id, req.body.likeNumber], 
           function (err, result) {
           if (err) throw err;
           res.status(201).json({ message: 'Votre vote a bien été enregistré !' });
@@ -139,7 +142,7 @@ exports.getOneLiker = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
   const user = decodedToken.user;
-  database.promise().query(`SELECT * FROM Like_state WHERE user_like_email= '${user}' AND post_id= ${req.params.id};`)
+  database.promise().query(`SELECT * FROM Like_state WHERE user_like_email= ? AND post_id= ?`,[user, req.params.id])
     .then(data => {
       res.status(200).json((JSON.parse(JSON.stringify(data[0])))[0])
     })
@@ -152,38 +155,22 @@ exports.deleteOnePost = (req, res, next) => {
   const user = decodedToken.user;
   const userAdmin = decodedToken.userIsAdmin;
   if (userAdmin === 1 ) {
-    database.promise().query(`DELETE FROM Post WHERE id= ${req.params.id};`)
+    database.promise().query(`CALL admin_delete_post(?);`,[req.params.id])
     .then(() => {
-      database.promise().query(`DELETE FROM Comment WHERE post_id= ${req.params.id};`)
-        .then(() => {
-          database.promise().query(`DELETE FROM Like_state WHERE post_id= ${req.params.id};`)
-            .then(() =>{
-              res.status(200).json({ message: 'Votre post a bien été supprimé'})
-            })
-            .catch(error => res.status(500).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
+      res.status(200).json({ message: 'Le post a bien été supprimé'})
     })
     .catch(error => res.status(500).json({ error }));
   } else {
-    database.promise().query(`DELETE FROM Post WHERE id= ${req.params.id} AND user_email='${user}';`)
+    database.promise().query(`CALL delete_post(?, ?);`,[req.params.id, user])
     .then(() => {
-      database.promise().query(`DELETE FROM Comment WHERE post_id= ${req.params.id};`)
-        .then(() => {
-          database.promise().query(`DELETE FROM Like_state WHERE post_id= ${req.params.id};`)
-            .then(() =>{
-              res.status(200).json({ message: 'Votre post a bien été supprimé'})
-            })
-            .catch(error => res.status(500).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
+      res.status(200).json({ message: 'Votre post a bien été supprimé'})     
     })
     .catch(error => res.status(500).json({ error }));
   }
 }
 
 exports.deleteOneComment = (req, res, next) => {
-  database.promise().query(`DELETE FROM Comment WHERE id= ${req.params.id};`)
+  database.promise().query(`DELETE FROM Comment WHERE id= ?;`,[req.params.id])
     .then(() =>{
       res.status(200).json({ message: 'Le commentaire a bien été supprimé'})
     })
