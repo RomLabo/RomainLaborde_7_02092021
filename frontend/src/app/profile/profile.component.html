@@ -2,16 +2,16 @@
 <div class="main-profile">
     <article class="profile">
         <h2 class="profile__title">Profil</h2>
-        <div class="profile__text">
+        <div class="profile__content">
             <p>{{ userName }}</p>
             <p>{{ userFirstName }}</p>
-        </div>
-        <button class="profile__btn" type="button" id="deleteBtn" (click)="deleteClick()">Supprimer  <i class="fas fa-trash-alt"></i></button>
-        <div class="profile__option" id="delete-div" *ngIf="clickedBouton === true">
-            <p class="option__text">Etes vous sur de vouloir supprimer votre profil ?</p>
-            <div>
-                <button class="option__btn" (click)="onDeleteProfile()" title="Oui"><i class="fas fa-check"></i></button>
-                <button class="option__btn" (click)="giveUpDelete()" title="Non"><i class="fas fa-times"></i></button>
+            <button class="profile-btn" type="button" id="deleteBtn" (click)="deleteClick()" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+            <div class="option-confirmation" id="delete-div" *ngIf="clickedBouton === true">
+                <p class="option-confirmation__text">Etes vous sur de vouloir supprimer votre profil ?</p>
+                <div class="option-confirmation__btn">
+                    <button class="profile-btn" (click)="onDeleteProfile()" title="Oui"><i class="fas fa-check"></i></button>
+                    <button class="profile-btn" (click)="giveUpDelete()" title="Non"><i class="fas fa-times"></i></button>
+                </div>
             </div>
         </div>
     </article>

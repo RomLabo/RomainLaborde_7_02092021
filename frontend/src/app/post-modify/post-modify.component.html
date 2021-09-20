@@ -1,20 +1,28 @@
 <app-header></app-header>
-<form class="form-content" [formGroup]="postForm" (ngSubmit)="onModifyPost()">
-    
-    <input id="post-title" class="form-content__input" name="post-title" type="text" aria-label="Titre du post" formControlName="postTitle">
-    <input id="post-text" class="form-content__input" name="post-text" type="text" aria-label="Texte du post" formControlName="postText">  
-    <button class="form-content__btn" name="addPost" type="submit">Modifier</button>
+<div class="create-content">
+    <div class="create-post">
+        <h2 class="create-post__title"><span *ngIf="!postId">Créer</span><span *ngIf="postId">Modifier</span> votre post</h2>
+        <div class="create-post__form">
+            <form class="form-content" [formGroup]="postForm" (ngSubmit)="onModifyPost()">
+                <input id="post-title" class="form-content__title" name="post-title" type="text" aria-label="Titre du post" placeholder="Ajouter votre titre" formControlName="postTitle">
+                <div class="form-content__img" *ngIf="imagePreview">
+                    <img [src]="imagePreview" alt="">
+                </div>
+                <textarea name="post-text"
+                            id="post-text"
+                            cols="30" rows="7"
+                            class="form-content__text"
+                            formControlName="postText"
+                            aria-label="Texte du post"
+                            placeholder="Ajouter votre texte">
+                </textarea>  
+                <div class="form-content__btn">
+                    <button class="form-btn-add-post" name="addPost" type="submit" title="Poster"><i class="fas fa-plus"></i></button>
+                    <button class="form-btn-add-img" (click)="fileUpload.click()" type="button" title="Ajouter une image"><i class="far fa-image"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
     <p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
-</form>
-
-<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-
-<div class="file-upload">
-
-    {{fileName || "Aucun fichier de télécharger."}}
- 
-    <button class="upload-btn" (click)="fileUpload.click()">Image</button>
-</div>
-<div class="image-preview" *ngIf="imagePreview">
-    <img [src]="imagePreview" alt="">
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 </div>

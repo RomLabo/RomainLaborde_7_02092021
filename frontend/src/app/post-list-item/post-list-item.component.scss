@@ -6,8 +6,12 @@
         margin: 0 0 1rem 0;
     }
     &__img {
-        width: 80%;
+        width: 100%;
         height: auto;
+        & img {
+            width: 100%;
+            height: 100%;
+        }
     }
     &__text {
         font-size: 1.2rem;
@@ -35,9 +39,10 @@
 
 .info-like {
     display: flex;
-    flex-direction: column;
     width: 5%;
     align-items: center;
+    padding: 0 0 1rem 0;
+    justify-content: space-evenly;
     &__icon {
         font-size: 1.5rem;
     }

@@ -18,7 +18,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostListItemComponent } from './post-list-item/post-list-item.component';
 import { PostService } from './services/post.service';
 import { AuthInterceptor } from './services/auth.interceptor';
-import { PostItemComponent } from './post-item/post-item.component';
+//import { PostItemComponent } from './post-item/post-item.component';
 import { PostComponent } from './post/post.component';
 import { CommentComponent } from './comment/comment.component';
 import { HeaderComponent } from './header/header.component';
@@ -32,7 +32,7 @@ const appRoutes : Routes = [
   { path: '', component: AuthComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
-  { path: 'post-item', canActivate: [AuthGuard], component: PostItemComponent },
+  { path: 'post-item', canActivate: [AuthGuard], component: PostModifyComponent },
   { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
   { path: 'home/:id', canActivate: [AuthGuard], component: PostComponent },
   { path: 'home/:id/modify', canActivate: [AuthGuard], component: PostModifyComponent },
@@ -49,7 +49,7 @@ const appRoutes : Routes = [
     NotFoundComponent,
     PostListComponent,
     PostListItemComponent,
-    PostItemComponent,
+    //PostItemComponent,
     PostComponent,
     CommentComponent,
     HeaderComponent,

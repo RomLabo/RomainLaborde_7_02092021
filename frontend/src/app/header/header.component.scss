@@ -31,16 +31,12 @@
     border: 0.15rem #FFF solid;
     position: relative;
     color: black;
-    /*&:hover {
-        border-top: 0.15rem #fd2d01 solid;
-        color: #fd2d01;
-    }*/
     &:hover {
-        &::before {
+        &::after {
             opacity: 1;
         }
     }
-    &::before {
+    &::after {
         content: attr(title);
         color: #fd2d01;
         position: absolute;

@@ -20,7 +20,7 @@
         font-size: 1.6rem;
         margin: 1rem 0 0.2rem 0;
     }
-    &__text {
+    &__content {
         width: 70%;
         height: auto;
         box-shadow: 3px 3px 5px #e0bebe;
@@ -46,11 +46,31 @@
     }
 }
 
-.option__btn {
-    background-color: #fff;
-    width: 50%;
+.option-confirmation {
+    display: flex;
+    gap: 1rem;
+    width: 70%;
+    justify-content: flex-end;
+    align-items: baseline;
+    flex-direction: column;
+    &__text {
+        width: 90%;
+    }
+    &__btn {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+}
+
+.profile-btn {
+    background-color: #ffd7d7;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
     border: none;
 }
+
 
 .profile-aside {
     width: 35%;

@@ -9,9 +9,8 @@
             <p class="info-text">Posté par {{ postUserName }} {{ postUserFirstName }}.</p>
             <a class="info-link" [routerLink]="[postId]">Commentaires</a>
             <div class="info-like">
-                <i class="info-like__icon fas fa-chevron-up" *ngIf="postLike >= 0"></i>
+                <i class="info-like__icon fas fa-arrows-alt-v" ></i>
                 <span class="info-like__number">{{ postLike }}</span>
-                <i class="info-like__icon fas fa-chevron-down" *ngIf="postLike <= 0"></i>
             </div>
         </div>
     </a>

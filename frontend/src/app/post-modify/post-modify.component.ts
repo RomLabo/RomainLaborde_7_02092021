@@ -13,6 +13,7 @@ export class PostModifyComponent implements OnInit {
 
   @Input() errorMessage!: string;
   @Input() imagePreview!: string;
+  @Input() postId!: number;
 
   postForm: FormGroup = new FormGroup({
     postTitle: new FormControl(''),
@@ -20,7 +21,6 @@ export class PostModifyComponent implements OnInit {
   });
   fileName!: string;
   dataImage!: any;
-  postId!: number;
   originPost!: any;
 
   constructor(private postService: PostService,  private formBuilder: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
@@ -30,16 +30,24 @@ export class PostModifyComponent implements OnInit {
   }
 
   initForm() {
-    this.postId = this.route.snapshot.params['id'];
-    this.postService.getOnePost(+this.postId).subscribe((response: any) =>{
-      if (response) {
-        this.originPost = response;
-        this.postForm = this.formBuilder.group({
-          postTitle: [this.originPost.title, [Validators.minLength(3), Validators.required]],
-          postText: [this.originPost.content, [Validators.required]]
-        })
-      }
-    })
+    if (this.route.snapshot.params['id']) {
+      this.postId = this.route.snapshot.params['id'];
+      this.postService.getOnePost(+this.postId).subscribe((response: any) =>{
+        if (response) {
+          this.originPost = response;
+          this.imagePreview = this.originPost.image_url;
+          this.postForm = this.formBuilder.group({
+            postTitle: [this.originPost.title, [Validators.minLength(3), Validators.required]],
+            postText: [this.originPost.content, [Validators.required]]
+          })
+        }
+      })
+    } else {
+      this.postForm = this.formBuilder.group({
+        postTitle: ['', [Validators.minLength(3), Validators.required]],
+        postText: ['', [Validators.required]]
+      })
+    }
   }
 
   onModifyPost() {
