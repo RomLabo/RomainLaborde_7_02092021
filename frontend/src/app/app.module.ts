@@ -26,6 +26,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserService } from './services/user.service';
 import { GlobalService } from './services/global.service';
 import { PostModifyComponent } from './post-modify/post-modify.component';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
 
 const appRoutes : Routes = [
   { path: '', component: AuthComponent },
@@ -53,7 +54,8 @@ const appRoutes : Routes = [
     CommentComponent,
     HeaderComponent,
     ProfileComponent,
-    PostModifyComponent
+    PostModifyComponent,
+    UserListItemComponent
   ],
   imports: [
     BrowserModule,

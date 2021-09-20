@@ -5,9 +5,9 @@ const auth = require('../middleware/auth');
 const authAdmin = require('../middleware/auth-admin');
 
 
-router.get('/', auth, profileController.getProfile);
+router.get('/', auth, profileController.getAllProfile);
 
-router.get('/:id', auth, authAdmin, profileController.getOneProfile);
+router.get('/:id', auth, profileController.getOneProfile);
 
 router.delete('/', auth, profileController.deleteProfile);
 

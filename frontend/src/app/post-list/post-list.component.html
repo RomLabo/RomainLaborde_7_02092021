@@ -2,13 +2,13 @@
   <input id="create-post-page" (click)="getCreatePostPage()" class="create-post-form__input" name="create-post-page" placeholder="&#x270E;  Créer un post " type="text" aria-label="Créer un post">
 </form>
 <div class="main">
-  <section class="post">
-    <h2 class="post__title">Fil d'actualité</h2>
+  <section class="post post-section">
+    <h2 class="post__title">Publications récentes</h2>
     <ul class="post__list"  >
       <app-post-list-item class="list-group-item" *ngFor="let post of posts$ | async" 
                             [postContent]="post.content"
                             [postTitle]="post.title"
-                            [postLike]="post.like"
+                            [postLike]="post.post_like"
                             [postUser]="post.user_email"
                             [postUserName]="post.user_name"
                             [postUserFirstName]="post.user_firstname"
@@ -17,4 +17,12 @@
       </app-post-list-item>
     </ul>
   </section>
+  <aside class="post-aside">
+    <h2 class="post-aside__title">Membres</h2>
+    <ul class="post-aside__list">
+      <app-user-list-item class="list-group-item" *ngFor="let user of users$ | async"
+                          [userName]="user.name"
+                          [userFirstName]="user.first_name" ></app-user-list-item>
+    </ul>
+  </aside>
 </div>

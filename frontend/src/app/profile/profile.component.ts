@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({
     searchUser: new FormControl(''),
   });
+
+  public readonly users$: Observable<any[]>;
   
   user!: any;
   isAdmin!: number;
@@ -29,7 +31,8 @@ export class ProfileComponent implements OnInit {
   
 
   constructor(private userService: UserService, private globalService: GlobalService, private formBuilder: FormBuilder) {
-    
+    this.userService.getAllProfile();
+    this.users$ = this.userService.usersSubject;
   }
 
   ngOnInit(): void {
@@ -45,11 +48,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onGetProfile() {
-    this.userService.getProfile().subscribe((response: Object) =>{
-      this.user = response;
-      this.userName = this.user.name;
-      this.userFirstName = this.user.first_name;
-    })
+    const id = this.globalService.isUser;
+    this.userService.getOneProfile(id).subscribe(
+      (response: Object) =>{
+        this.user = response;
+        this.userName = this.user.name;
+        this.userFirstName = this.user.first_name;
+      },
+      (error) => this.errorMessage = error.error.error
+    );
   }
 
   deleteClick() {

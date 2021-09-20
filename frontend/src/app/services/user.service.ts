@@ -6,12 +6,27 @@ import { Router } from "@angular/router";
 @Injectable()
 export class UserService {
 
+    usersSubject = new Subject<any[]>();
+    
     public errorMessage!: string;
+    private users: any[] = [];
+
 
     constructor(private http: HttpClient, private router: Router) {}
 
-    getProfile() {
-      return this.http.get<Object>('http://localhost:3000/api/profile');  
+    emitUsersSubject() {
+      this.usersSubject.next(this.users.slice());
+    }
+
+    getAllProfile() {
+      this.http.get<any[]>('http://localhost:3000/api/profile')
+      .subscribe(
+        (response) => {
+          this.users = response;
+          this.emitUsersSubject();
+        },
+        (error) => {this.errorMessage = error.message;}
+      );  
     }
 
     getOneProfile(id: string) {

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+
 
 
 @Component({
@@ -18,10 +19,10 @@ export class PostListItemComponent implements OnInit {
   @Input() postImageUrl!: string;
 
   //@Input() postDate!: Date;
-
+  
   
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     

@@ -1,13 +1,10 @@
 const database = require('../models/data-base');
 const jwt = require('jsonwebtoken');
 
-exports.getProfile = (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-  const user = decodedToken.user;
-  database.promise().query(`SELECT * FROM User WHERE email= '${user}';`)
+exports.getAllProfile = (req, res, next) => {
+  database.promise().query(`SELECT name, first_name FROM User WHERE is_admin=0;`)
     .then(data => {
-      res.status(200).json((JSON.parse(JSON.stringify(data[0])))[0])
+      res.status(200).json((JSON.parse(JSON.stringify(data[0]))))
     })
     .catch(error => res.status(500).json({ error }))
   ;

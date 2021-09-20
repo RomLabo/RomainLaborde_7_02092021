@@ -1,14 +1,29 @@
 <app-header></app-header>
-<article>
-    <h4>{{ userName }}</h4>
-    <p>{{ userFirstName }}</p>
-    <button type="button" id="deleteBtn" (click)="deleteClick()">Supprimer</button>
-    <div id="delete-div" *ngIf="clickedBouton === true">
-        Etes vous sur de vouloir supprimer votre profil ?
-        <button (click)="onDeleteProfile()">Oui</button>
-        <button (click)="giveUpDelete()">Non</button>
-    </div>
-</article>
+<div class="main-profile">
+    <article class="profile">
+        <h2 class="profile__title">Profil</h2>
+        <div class="profile__text">
+            <p>{{ userName }}</p>
+            <p>{{ userFirstName }}</p>
+        </div>
+        <button class="profile__btn" type="button" id="deleteBtn" (click)="deleteClick()">Supprimer  <i class="fas fa-trash-alt"></i></button>
+        <div class="profile__option" id="delete-div" *ngIf="clickedBouton === true">
+            <p class="option__text">Etes vous sur de vouloir supprimer votre profil ?</p>
+            <div>
+                <button class="option__btn" (click)="onDeleteProfile()" title="Oui"><i class="fas fa-check"></i></button>
+                <button class="option__btn" (click)="giveUpDelete()" title="Non"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </article>
+    <aside class="profile-aside">
+        <h2 class="profile-aside__title">Membres</h2>
+        <ul class="profile-aside__list">
+          <app-user-list-item class="list-group-item" *ngFor="let user of users$ | async"
+                              [userName]="user.name"
+                              [userFirstName]="user.first_name" ></app-user-list-item>
+        </ul>
+    </aside>
+</div>
 <div *ngIf="isAdmin === 1">
     <form class="form-content" [formGroup]="searchForm" (ngSubmit)="onGetOneProfile()">
         <input id="search-user" class="form-content__input" name="search-user" type="text" aria-label="Recherche un utilisateur" formControlName="searchUser">

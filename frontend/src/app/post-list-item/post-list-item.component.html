@@ -1,16 +1,18 @@
 <li id="list-item" class="list-group-item" >
-    <a [routerLink]="[postId]">
-        <div>
-            <span>Posté par {{ postUserName }} {{ postUserFirstName }}.</span>
-            <!--<span>{{ postDate | date }}</span>--></div>
-        <h4>{{ postTitle}}</h4>
-        <div *ngIf="postImageUrl !== 'imageUrl'">
+    <a [routerLink]="[postId]" class="list-item">
+        <h4 class="list-item__title">{{ postTitle}}</h4>
+        <div class="list-item__img" *ngIf="postImageUrl !== 'imageUrl'">
             <img [src]="postImageUrl" alt="L'image du post" class="list-img">
         </div>
-        <p>{{ postContent }}</p>
-        <div>
-            <span>{{ postLike }}</span>
+        <p class="list-item__text">{{ postContent }}</p>
+        <div class="list-item__info">
+            <p class="info-text">Posté par {{ postUserName }} {{ postUserFirstName }}.</p>
+            <a class="info-link" [routerLink]="[postId]">Commentaires</a>
+            <div class="info-like">
+                <i class="info-like__icon fas fa-chevron-up" *ngIf="postLike >= 0"></i>
+                <span class="info-like__number">{{ postLike }}</span>
+                <i class="info-like__icon fas fa-chevron-down" *ngIf="postLike <= 0"></i>
+            </div>
         </div>
-        <a [routerLink]="[postId]">Commentaires</a>
     </a>
 </li>

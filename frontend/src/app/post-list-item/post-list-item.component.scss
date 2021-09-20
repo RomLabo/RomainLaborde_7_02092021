@@ -1,5 +1,58 @@
+.list-item {
+    text-decoration: none;
+    color: black;
+    &__title {
+        font-size: 1.5rem;
+        margin: 0 0 1rem 0;
+    }
+    &__img {
+        width: 80%;
+        height: auto;
+    }
+    &__text {
+        font-size: 1.2rem;
+    }
+    &__info {
+        display: flex;
+        height: 4.5rem;
+    }
+}
+
+.info-text {
+    width: 50%;
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 1rem 0 0 0;
+}
+
+.info-link {
+    width: 45%;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 1rem 0 0 0;
+    color: black;
+}
+
+.info-like {
+    display: flex;
+    flex-direction: column;
+    width: 5%;
+    align-items: center;
+    &__icon {
+        font-size: 1.5rem;
+    }
+    &__number {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+}
+
 
 .list-img {
     width: 50%;
     height: 50%;
 }
+
+
+
+
