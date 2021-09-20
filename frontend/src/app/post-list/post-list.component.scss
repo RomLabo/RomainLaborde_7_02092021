@@ -1,15 +1,55 @@
+.create-post-form {
+    display: flex;
+    justify-content: center;
+    height: 3.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    &__input {
+        width: 40%;
+        padding: 0 0 0 2rem;
+        height: 3rem;
+        border: 2px solid #ffd7d7;
+        border-radius: 1rem;
+        &::placeholder {
+            font-size: 1.2rem;
+        }
+    }   
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 0 0;
+}
+
 .post {
     width: 90%;
-}
-.post-list {
-    list-style-type: none;
-    width: 100%;
     height: auto;
+    padding: 0 0 2rem 0;
+    background-color: #ffd7d7;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    &__title {
+        width: 95%;
+    }
+    &__list {
+        list-style-type: none;
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        grid-gap: 1rem;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+    }
 }
+
 
 .list-group-item {
     width: 100%;

@@ -1,9 +1,10 @@
-<form class="form-content">
-  <input id="create-post-page" (click)="getCreatePostPage()" class="form-content__input" name="create-post-page" placeholder="Créer un post" type="text" aria-label="Créer un post">
+<form class="create-post-form">
+  <input id="create-post-page" (click)="getCreatePostPage()" class="create-post-form__input" name="create-post-page" placeholder="&#x270E;  Créer un post " type="text" aria-label="Créer un post">
 </form>
-<div class="post">
-    <h2>Fil d'actualité</h2>
-    <ul class="post-list"  >
+<div class="main">
+  <section class="post">
+    <h2 class="post__title">Fil d'actualité</h2>
+    <ul class="post__list"  >
       <app-post-list-item class="list-group-item" *ngFor="let post of posts$ | async" 
                             [postContent]="post.content"
                             [postTitle]="post.title"
@@ -15,4 +16,5 @@
                             [postId]="post.id">
       </app-post-list-item>
     </ul>
+  </section>
 </div>
