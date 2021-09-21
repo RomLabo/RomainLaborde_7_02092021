@@ -51,12 +51,27 @@ export class PostModifyComponent implements OnInit {
   }
 
   onModifyPost() {
-    const inputRegExp = /'/g;
-    const formValue = this.postForm.value;
-    const titleForPost = inputRegExp[Symbol.replace](formValue['postTitle'], "\\'");
-    const textForPost = inputRegExp[Symbol.replace](formValue['postText'], "\\'");
-    this.postService.modifyPost(titleForPost, textForPost, this.dataImage, this.postId);
-    this.router.navigate(['home']);
+    if (!this.postId) {
+      const inputRegExp = /'/g;
+      const formValue = this.postForm.value;
+      const titleForPost = inputRegExp[Symbol.replace](formValue['postTitle'], "\\'");
+      const textForPost = inputRegExp[Symbol.replace](formValue['postText'], "\\'");
+      this.postService.createPost(titleForPost, textForPost, this.dataImage).subscribe(
+        (response: any) =>{
+          this.router.navigate(['home']);
+        },
+        (error) => this.errorMessage = error);
+    } else {
+      const inputRegExp = /'/g;
+      const formValue = this.postForm.value;
+      const titleForPost = inputRegExp[Symbol.replace](formValue['postTitle'], "\\'");
+      const textForPost = inputRegExp[Symbol.replace](formValue['postText'], "\\'");
+      this.postService.modifyPost(titleForPost, textForPost, this.dataImage, this.postId).subscribe(
+        (response: any) =>{
+          this.router.navigate(['home']);
+        },
+        (error) => this.errorMessage = error);
+    }
   }
 
   onFileSelected(event: any) {

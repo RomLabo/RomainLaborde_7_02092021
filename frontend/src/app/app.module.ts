@@ -18,7 +18,6 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostListItemComponent } from './post-list-item/post-list-item.component';
 import { PostService } from './services/post.service';
 import { AuthInterceptor } from './services/auth.interceptor';
-//import { PostItemComponent } from './post-item/post-item.component';
 import { PostComponent } from './post/post.component';
 import { CommentComponent } from './comment/comment.component';
 import { HeaderComponent } from './header/header.component';
@@ -49,7 +48,6 @@ const appRoutes : Routes = [
     NotFoundComponent,
     PostListComponent,
     PostListItemComponent,
-    //PostItemComponent,
     PostComponent,
     CommentComponent,
     HeaderComponent,

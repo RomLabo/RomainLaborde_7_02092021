@@ -46,6 +46,13 @@ export class PostComponent implements OnInit, OnDestroy {
     this.initForm();
     this.onGetOnePost();
     this.onGetPostLiker();
+    const id = this.route.snapshot.params['id'];
+    this.postService.getAllComments(+id);
+    this.commentSubscription = this.postService.commentsSubject.subscribe(
+      (comments: any[]) => {
+        this.comments = comments;
+      }
+    )
     this.isAdmin = this.globalService.isAdmin;
     this.isUser = this.globalService.isUser;
   }
@@ -68,12 +75,6 @@ export class PostComponent implements OnInit, OnDestroy {
         this.postUserFirstName = this.post.user_firstname;
         this.postUser = this.post.user_email;
         this.postImageUrl = this.post.image_url;
-        this.postService.getAllComments(+id);
-        this.commentSubscription = this.postService.commentsSubject.subscribe(
-          (comments: any[]) => {
-            this.comments = comments;
-          }
-        )
       } else {
         this.router.navigate(['']);
       }
@@ -99,16 +100,20 @@ export class PostComponent implements OnInit, OnDestroy {
     this.numberOfLike === 1 ? this.numberOfLike-- : this.numberOfLike++;
     const likeNumber = this.numberOfLike;
     const id = this.route.snapshot.params['id'];
-    this.postService.addLike(+id, likeNumber);
-    this.onGetOnePost();
+    this.postService.addLike(+id, likeNumber).subscribe((response: any) =>{
+      this.onGetOnePost();
+    },
+    (error) => this.errorMessage = error);
   }
 
   onAddDislike() {
     (this.numberOfLike === -1) ? this.numberOfLike++ : this.numberOfLike--;
     const likeNumber = this.numberOfLike;
     const id = this.route.snapshot.params['id'];
-    this.postService.addLike(+id, likeNumber);
-    this.onGetOnePost();
+    this.postService.addLike(+id, likeNumber).subscribe((response: any) =>{
+      this.onGetOnePost();
+    },
+    (error) => this.errorMessage = error);
   }
 
   onGetPostLiker() {

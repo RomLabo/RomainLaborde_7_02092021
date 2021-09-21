@@ -5,7 +5,7 @@
         <div class="create-post__form">
             <form class="form-content" [formGroup]="postForm" (ngSubmit)="onModifyPost()">
                 <input id="post-title" class="form-content__title" name="post-title" type="text" aria-label="Titre du post" placeholder="Ajouter votre titre" formControlName="postTitle">
-                <div class="form-content__img" *ngIf="imagePreview">
+                <div class="form-content__img" *ngIf="imagePreview != undefined || postId ">
                     <img [src]="imagePreview" alt="">
                 </div>
                 <textarea name="post-text"

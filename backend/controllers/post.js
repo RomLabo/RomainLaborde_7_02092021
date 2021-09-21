@@ -57,12 +57,20 @@ exports.modifyPost = (req, res, next) => {
   const postTitle = JSON.parse(req.body.postTitle);
   const postText = JSON.parse(req.body.postText);
   if (req.file) {
-    imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
-    database.query(`UPDATE Post SET content= ?, title= ?, image_url= ? WHERE id= ? AND user_email= ?;`, [postText, postTitle, imageUrl, req.params.id, user], 
-      function (err, result) {
-      if (err) throw err;
-      res.status(201).json({ message: 'Post modifier !' });
-    });
+    database.promise().query(`SELECT * FROM Post WHERE id= ?`, [req.params.id])
+    .then(data => {
+      const post = (JSON.parse(JSON.stringify(data[0])))[0];
+      const fileName = post.image_url.split('/images/')[1];
+      fs.unlink (`images/${fileName}`, () => {
+        imageUrl = `${req.protocol}://${reqHost}/images/${req.file.filename}`;
+        database.query(`UPDATE Post SET content= ?, title= ?, image_url= ? WHERE id= ? AND user_email= ?;`, [postText, postTitle, imageUrl, req.params.id, user], 
+          function (err, result) {
+          if (err) throw err;
+          res.status(201).json({ message: 'Post modifier !' });
+        });
+      })
+    })
+    .catch(error => res.status(500).json({ error }));
   } else {
     database.query(`UPDATE Post SET content='${postText}', title='${postTitle}' WHERE id=${req.params.id} AND user_email='${user}';`, 
       function (err, result) {
@@ -154,19 +162,30 @@ exports.deleteOnePost = (req, res, next) => {
   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
   const user = decodedToken.user;
   const userAdmin = decodedToken.userIsAdmin;
-  if (userAdmin === 1 ) {
-    database.promise().query(`CALL admin_delete_post(?);`,[req.params.id])
-    .then(() => {
-      res.status(200).json({ message: 'Le post a bien été supprimé'})
-    })
-    .catch(error => res.status(500).json({ error }));
-  } else {
-    database.promise().query(`CALL delete_post(?, ?);`,[req.params.id, user])
-    .then(() => {
-      res.status(200).json({ message: 'Votre post a bien été supprimé'})     
-    })
-    .catch(error => res.status(500).json({ error }));
-  }
+  database.promise().query(`SELECT * FROM Post WHERE id= ?`, [req.params.id])
+  .then(data => {
+    const post = (JSON.parse(JSON.stringify(data[0])))[0];
+    if (userAdmin === 1 ) {
+      const fileName = post.image_url.split('/images/')[1];
+      fs.unlink (`images/${fileName}`, () => {
+        database.promise().query(`CALL admin_delete_post(?);`,[req.params.id])
+        .then(() => {
+          res.status(200).json({ message: 'Le post a bien été supprimé'})
+        })
+        .catch(error => res.status(500).json({ error }));
+      })
+    } else {
+      const fileName = post.image_url.split('/images/')[1];
+      fs.unlink (`images/${fileName}`, () => {
+        database.promise().query(`CALL delete_post(?, ?);`,[req.params.id, user])
+        .then(() => {
+          res.status(200).json({ message: 'Votre post a bien été supprimé'})     
+        })
+        .catch(error => res.status(500).json({ error }));
+      })
+    }
+  })
+  .catch(error => res.status(500).json({ error }));
 }
 
 exports.deleteOneComment = (req, res, next) => {

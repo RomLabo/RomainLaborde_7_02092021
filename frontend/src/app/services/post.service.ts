@@ -44,13 +44,7 @@ export class PostService {
       thingData.append('postTitle', JSON.stringify(postTitle));
       thingData.append('postText', JSON.stringify(postText));
       thingData.append('image', dataImage);
-      this.http.post('http://localhost:3000/api/post', thingData)
-      .subscribe(
-        (response) => {
-          console.log(response)
-        },
-        (error) => {this.errorMessage = error.message;}
-      );
+      return this.http.post('http://localhost:3000/api/post', thingData);
     }
 
     modifyPost(postTitle: string, postText: string, dataImage: File, id: number) {
@@ -58,13 +52,7 @@ export class PostService {
       thingData.append('postTitle', JSON.stringify(postTitle));
       thingData.append('postText', JSON.stringify(postText));
       thingData.append('image', dataImage);
-      this.http.put('http://localhost:3000/api/post/'+ id, thingData)
-      .subscribe(
-        (response) => {
-          console.log(response)
-        },
-        (error) => {this.errorMessage = error.message;}
-      );
+      return this.http.put('http://localhost:3000/api/post/'+ id, thingData);
     }
 
     getOnePost(id: number) {
@@ -97,14 +85,7 @@ export class PostService {
     }
 
     addLike(id: number, likeNumber: number) {
-      this.http.post(`http://localhost:3000/api/post/${+id}/like`,
-                    {likeNumber: likeNumber })
-      .subscribe(
-        (response) => {
-          console.log(response)
-        },
-        (error) => {this.errorMessage = error.message;}
-      )              
+      return this.http.post(`http://localhost:3000/api/post/${+id}/like`, {likeNumber: likeNumber })              
     }
 
     getPostLiker(id: number) {

@@ -1,3 +1,10 @@
+@mixin mobile-only {
+    @media screen and (max-width: 599px){
+        @content;
+    }
+}
+
+
 .list-item {
     text-decoration: none;
     color: black;
@@ -19,6 +26,9 @@
     &__info {
         display: flex;
         height: 4.5rem;
+        @include mobile-only {
+            flex-wrap: wrap;
+        }
     }
 }
 
@@ -28,6 +38,9 @@
     font-size: 1.2rem;
     font-style: italic;
     margin: 1rem 0 0 0;
+    @include mobile-only {
+        width: 98%;
+    }
 }
 
 .info-link {
@@ -36,6 +49,9 @@
     font-size: 1.2rem;
     margin: 1rem 0 0 0;
     color: black;
+    @include mobile-only {
+        width: 90%;
+    }
 }
 
 .info-like {
