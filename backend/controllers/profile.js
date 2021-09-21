@@ -14,7 +14,6 @@ exports.getOneProfile = (req, res, next) => {
   database.promise().query(`SELECT * FROM User WHERE email= '${req.params.id}';`)
     .then(data => {
       if ((data[0])[0] == null) {
-        console.log('echec');
         return res.status(404).json({ error: 'Aucun utilisateur n\'est enregistré avec cette email' })
       }
       res.status(200).json((JSON.parse(JSON.stringify(data[0])))[0]);

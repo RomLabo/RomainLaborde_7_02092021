@@ -7,10 +7,29 @@
             <p>{{ userFirstName }}</p>
             <button class="profile-btn" type="button" id="deleteBtn" (click)="deleteClick()" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
             <div class="option-confirmation" id="delete-div" *ngIf="clickedBouton === true">
-                <p class="option-confirmation__text">Etes vous sur de vouloir supprimer votre profil ?</p>
+                <p class="option-confirmation__text">Etes vous sûr de vouloir supprimer votre profil ?</p>
                 <div class="option-confirmation__btn">
                     <button class="profile-btn" (click)="onDeleteProfile()" title="Oui"><i class="fas fa-check"></i></button>
                     <button class="profile-btn" (click)="giveUpDelete()" title="Non"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="profile__content" *ngIf="isAdmin === 1">
+            <form class="search-user-form" [formGroup]="searchForm" (ngSubmit)="onGetOneProfile()">
+                <input id="search-user" class="profile-input" name="search-user" type="text" aria-label="Recherche un utilisateur" formControlName="searchUser">
+                <button class="profile-btn" name="addComment" type="submit" title="Rechercher"><i class="fas fa-search"></i></button>
+            </form>
+            <p id="error-message" *ngIf="errorMessage != null ">{{ errorMessage }}</p>
+            <div *ngIf="userSearched != null ">
+                <h4>{{ userSearchedName }}</h4>
+                <p>{{ userSearchedFirstName }}</p>
+                <button class="profile-btn" (click)="adminDeleteClick()" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+                <div class="option-confirmation" *ngIf="adminClickedBouton === true">
+                    <p class="option-confirmation__text">Etes vous sûr de vouloir supprimer ce profil ?</p>
+                    <div class="option-confirmation__btn">
+                        <button class="profile-btn" (click)="onDeleteOneProfile()" title="Oui"><i class="fas fa-check"></i></button>
+                        <button class="profile-btn" (click)="adminGiveUpDelete()" title="Non"><i class="fas fa-times"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,20 +43,4 @@
         </ul>
     </aside>
 </div>
-<div *ngIf="isAdmin === 1">
-    <form class="form-content" [formGroup]="searchForm" (ngSubmit)="onGetOneProfile()">
-        <input id="search-user" class="form-content__input" name="search-user" type="text" aria-label="Recherche un utilisateur" formControlName="searchUser">
-        <button class="form-content__btn" name="addComment" type="submit">Rechercher utilisateur</button>
-        <p>{{ errorMessage }}</p>
-    </form>
-    <div *ngIf="userSearched != null ">
-        <h4>{{ userSearchedName }}</h4>
-        <p>{{ userSearchedFirstName }}</p>
-        <button (click)="adminDeleteClick()">Supprimer</button>
-        <div *ngIf="adminClickedBouton === true">
-            Etes vous sur de vouloir supprimer ce post ?
-            <button (click)="onDeleteOneProfile()">Oui</button>
-            <button (click)="adminGiveUpDelete()">Non</button>
-        </div>
-    </div>
-</div>
+

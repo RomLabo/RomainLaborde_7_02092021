@@ -81,22 +81,84 @@
     &__btn {
         background-color: #ffd7d7;
         border-radius: 50%;
-        width: 2.5rem;
-        height: 2.5rem;
+        font-size: 1.2rem;
+        width: 3rem;
+        height: 3rem;
         border: none;
+        cursor: pointer;
+        z-index: 1;
+        position: relative;
+        &:hover {
+            &::after {
+                opacity: 1;
+            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
+            border-radius: 50%;
+            width: 100%;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 250ms;
+        }
     }
+}
+
+.info-text {
+    font-style: italic;
+}
+
+.info-admin {
+    margin: 0 0 0 2rem;
+    color: #fd2d01;
 }
 
 .option-btn {
     text-decoration: none;
     background-color: #ffd7d7;
     border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
+    font-size: 1.2rem;
+    width: 3rem;
+    height: 3rem;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+    color: #000;
+    &:hover {
+        &::after {
+            opacity: 1;
+        }
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
+        border-radius: 50%;
+        width: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 250ms;
+    }
 }
 
 .option-confirmation {
@@ -111,9 +173,35 @@
     &__btn {
         background-color: #ffd7d7;
         border-radius: 50%;
-        width: 2.5rem;
-        height: 2.5rem;
+        font-size: 1.2rem;
+        width: 3rem;
+        height: 3rem;
         border: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        &:hover {
+            &::after {
+                opacity: 1;
+            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
+            border-radius: 50%;
+            width: 100%;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 250ms;
+        }
     }
 }
 
@@ -176,6 +264,12 @@
     height: 5rem;
     border-radius: 0.5rem;
     border: 2px solid #ffd7d7;
+    font-family: 'Raleway', sans-serif, Arial;
+    &:focus, :active {
+        border: 2px solid #fd2d01;
+        border-radius: 0.5rem;
+        outline: none;
+    }
 }
 
 .comment-form-btn {
@@ -185,7 +279,9 @@
     background-color: #ffd7d7;
     border: none;
     position: relative;
+    font-size: 1.2rem;
     z-index: 1;
+    cursor: pointer;
     &:hover {
         &::after {
             opacity: 1;

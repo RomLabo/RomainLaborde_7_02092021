@@ -10,7 +10,7 @@
                 </div>
                 <p class="list-item__text">{{ postContent }}</p>
                 <div class="list-item__info">
-                    <p class="info-text">Posté par {{ postUserName }} {{ postUserFirstName }}. <span *ngIf="isAdmin === 1">  {{ postUser }}</span></p>
+                    <p class="info-text">Posté par {{ postUserName }} {{ postUserFirstName }}. <span class="info-admin" *ngIf="isAdmin === 1">  {{ postUser }}</span></p>
                     <div class="info-like">
                         <button class="info-like__btn" name="addLike" type="button" [disabled]="numberOfLike == -1" (click)="onAddLike()" title="Liker">
                             <i class="fas fa-long-arrow-alt-up"></i>

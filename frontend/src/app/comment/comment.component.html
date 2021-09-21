@@ -1,12 +1,12 @@
 <li>
-    <span>Commenté par {{ commentUserName }} {{ commentUserFirstName }}</span><span *ngIf="isAdmin === 1">{{ commentUserMail }}</span>
+    <p class="info-text">Commenté par {{ commentUserName }} {{ commentUserFirstName }} <span class="info-admin" *ngIf="isAdmin === 1">  {{ commentUserMail }}</span></p>
     <p>{{ commentContent }}</p>
-    <div *ngIf="isAdmin === 1">
-        <button (click)="deleteClick()">Supprimer</button>
-        <div *ngIf="clickedDeleteComment === true">
-            Etes vous sur de vouloir supprimer ce post ?
-            <button (click)="onDeleteOneComment()">Oui</button>
-            <button (click)="giveUpDelete()">Non</button>
+    <div class="list-option" *ngIf="isAdmin === 1">
+        <button class="option-btn" (click)="deleteClick()" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+        <div  class="option-confirmation" *ngIf="clickedDeleteComment === true">
+            <p class="option-confirmation__text">Etes vous sur de vouloir supprimer ce post ?</p>
+            <button class="option-confirmation__btn" (click)="onDeleteOneComment()" title="Oui"><i class="fas fa-check"></i></button>
+            <button class="option-confirmation__btn" (click)="giveUpDelete()" title="Non"><i class="fas fa-times"></i></button>
         </div>
     </div>
 </li>

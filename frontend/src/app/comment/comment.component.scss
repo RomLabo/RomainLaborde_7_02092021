@@ -1,0 +1,103 @@
+.list-option {
+    width: 90%;
+    height: auto;
+    padding: 2%;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    height: 4rem;
+    gap: 3rem;
+    align-items: center;
+}
+
+.option-btn {
+    text-decoration: none;
+    background-color: #ffd7d7;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+    color: #000;
+    &:hover {
+        &::after {
+            opacity: 1;
+        }
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
+        border-radius: 50%;
+        width: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 250ms;
+    }
+}
+
+.info-text {
+    font-style: italic;
+}
+
+.info-admin {
+    margin: 0 0 0 2rem;
+    color: #fd2d01;
+}
+
+.option-confirmation {
+    display: flex;
+    gap: 1rem;
+    width: 70%;
+    justify-content: flex-end;
+    align-items: baseline;
+    &__text {
+        width: 60%;
+    }
+    &__btn {
+        background-color: #ffd7d7;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        width: 3rem;
+        height: 3rem;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        &:hover {
+            &::after {
+                opacity: 1;
+            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
+            border-radius: 50%;
+            width: 100%;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 250ms;
+        }
+    }
+}

@@ -55,7 +55,9 @@ export class ProfileComponent implements OnInit {
         this.userName = this.user.name;
         this.userFirstName = this.user.first_name;
       },
-      (error) => this.errorMessage = error.error.error
+      (error) => {
+        this.errorMessage = error.error.error;
+      }  
     );
   }
 
@@ -87,11 +89,12 @@ export class ProfileComponent implements OnInit {
         this.userSearched = response;
         this.userSearchedName = this.userSearched.name;
         this.userSearchedFirstName = this.userSearched.first_name;
+        this.errorMessage = '';
       },
       (error) => this.errorMessage = error.error.error
     );
   }
-
+  
   onDeleteOneProfile() {
     const formValue = this.searchForm.value;
     const id = formValue['searchUser'];

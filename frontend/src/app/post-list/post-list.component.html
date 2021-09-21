@@ -20,7 +20,7 @@
   <aside class="post-aside">
     <h2 class="post-aside__title">Membres</h2>
     <ul class="post-aside__list">
-      <app-user-list-item class="list-group-item" *ngFor="let user of users$ | async"
+      <app-user-list-item class="list-user-item" *ngFor="let user of users$ | async"
                           [userName]="user.name"
                           [userFirstName]="user.first_name" ></app-user-list-item>
     </ul>
