@@ -17,15 +17,20 @@ export class PostListItemComponent implements OnInit {
   @Input() postUserFirstName!: string;
   @Input() postId!: number;
   @Input() postImageUrl!: string;
-
-  //@Input() postDate!: Date;
+  @Input() postDay!: number;
+  @Input() postHour!: number;
+  @Input() postMinute!: number;
+  postTitleText!: string;
+  postContentText!: string;
   
   
 
   constructor() {}
 
   ngOnInit(): void {
-    
+    const outputRegExp = /\\'/g;
+    this.postTitleText = outputRegExp[Symbol.replace](this.postTitle, "'");
+    this.postContentText = outputRegExp[Symbol.replace](this.postContent, "'");
   }
 
 }

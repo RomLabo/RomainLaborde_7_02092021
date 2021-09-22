@@ -25,7 +25,7 @@
         gap: 0;
         height: auto;
         flex-wrap: wrap;
-        margin: 0 0 2rem 0;
+        margin: 0;
         width: 100%;
         position: static;
     }
@@ -117,4 +117,14 @@
 .nav__item-logout {
     font-weight: bold;
     width: 40%;
+}
+
+h1 {
+    margin: 5rem 0 0 0;
+    font-size: 1.6rem;
+    padding: 3rem;
+    @include mobile-only {
+        margin: 0;
+        padding: 1rem;
+    }
 }

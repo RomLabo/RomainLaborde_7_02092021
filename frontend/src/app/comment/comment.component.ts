@@ -12,17 +12,24 @@ export class CommentComponent implements OnInit {
 
   @Input() commentUserName!: string;
   @Input() commentUserFirstName!: string;
-  @Input() commentContent!: string;
   @Input() commentId!: number;
   @Input() commentUserMail!: string;
+  @Input() commentDay!: number;
+  @Input() commentHour!: number;
+  @Input() commentMinute!: number;
+  @Input() commentContent!: string;
   isAdmin!: number;
   clickedDeleteComment: boolean = false;
   errorMessage!: string;
+  commentContentText!: string;
+  
 
   constructor(private globalService: GlobalService, private postService: PostService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.isAdmin = this.globalService.isAdmin;
+    const outputRegExp = /\\'/g;
+    this.commentContentText = outputRegExp[Symbol.replace](this.commentContent, "'");
   }
 
   deleteClick() {

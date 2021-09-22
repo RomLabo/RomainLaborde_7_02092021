@@ -2,8 +2,9 @@
     <img class="header__img" src="../../assets/logo.png" alt="Le logo de l'entreprise">
     <p class="header__text" *ngIf="isAdmin === 1">Administrateur</p>
     <nav class="header__nav">
-        <a class="nav__item nav__item-menu" [routerLink]="['/home']" title="Retour">Retour</a>
-        <a class="nav__item nav__item-menu" [routerLink]="['/profile']" title="Profil">Profil</a>
-        <a class="nav__item nav__item-logout" (click)="onClickLogout()" title="Déconnexion">Déconnexion</a>
+        <a class="nav__item nav__item-menu" [routerLink]="['/home']" title="Retour à l'accueil">Accueil</a>
+        <a class="nav__item nav__item-menu" [routerLink]="['/profile']" title="voir profil">Profil</a>
+        <a class="nav__item nav__item-logout" (click)="onClickLogout()" title="Se déconnecter">Déconnexion</a>
     </nav>
 </header>
+<h1>Partagez et restez en contact avec vos collègues</h1>

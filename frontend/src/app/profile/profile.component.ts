@@ -101,7 +101,8 @@ export class ProfileComponent implements OnInit {
     this.userService.deleteOneProfile(id).subscribe(
       (response: any) => {
         this.searchForm.reset();
-        this.userSearched = null;   
+        this.userSearched = null;
+        this.adminGiveUpDelete();   
       },
       (error) => this.errorMessage = error
     );

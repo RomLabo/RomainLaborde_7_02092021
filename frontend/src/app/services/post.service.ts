@@ -74,14 +74,7 @@ export class PostService {
     }
 
     createComment(id: number, commentText: string) {
-      this.http.post('http://localhost:3000/api/post/comments/' + id,
-                      {commentText: commentText})
-      .subscribe(
-        (response) => {
-          console.log(response)
-        },
-        (error) => {this.errorMessage = error.message;}
-      );
+      return this.http.post('http://localhost:3000/api/post/comments/' + id, {commentText: commentText})
     }
 
     addLike(id: number, likeNumber: number) {

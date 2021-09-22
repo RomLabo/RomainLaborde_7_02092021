@@ -30,6 +30,7 @@
     &__info {
         display: flex;
         height: 4.5rem;
+        justify-content: space-between;
         @include mobile-only {
             flex-wrap: wrap;
         }
@@ -38,12 +39,12 @@
 
 
 .info-text {
-    width: 50%;
+    width: 90%;
     font-size: 1.2rem;
     font-style: italic;
     margin: 1rem 0 0 0;
     @include mobile-only {
-        width: 98%;
+        width: 85%;
     }
 }
 

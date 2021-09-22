@@ -5,19 +5,11 @@ const database = require('../models/data-base');
 
 
 exports.signin = (req, res, next) => {
-  database.promise().query(`SELECT * FROM User WHERE email = '${req.body.user.email}';`)
-    .then((row) => {
-      const userInfo = (JSON.parse(JSON.stringify(row[0])))[0];
-      if (userInfo.email === req.body.user.email) {
-        return res.status(401).json({ error: 'Cette email est déjà utilisé' });
-      }
-      bcrypt.hash(req.body.user.password, 10)
-        .then(hash => {
-          database.query(`INSERT INTO User (email, password, name, first_name) VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}');`)
-            .then(() => res.status(201).json({ message: 'Utilisateur créer !' }))
-            .catch(error => res.status(400).json({ error }));  
-        })
-        .catch(error => res.status(500).json({ error }));
+  bcrypt.hash(req.body.user.password, 10)
+    .then(hash => {
+      database.promise().query(`INSERT INTO User (email, password, name, first_name) VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}');`)
+        .then(() => res.status(201).json({ message: 'Utilisateur créer !' }))
+        .catch(error => res.status(401).json({ error: 'Cette email est déjà utilisé' }));  
     })
     .catch(error => res.status(500).json({ error }));
 }

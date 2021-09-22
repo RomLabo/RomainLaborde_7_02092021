@@ -64,12 +64,13 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   onGetOnePost() {
+    const outputRegExp = /\\'/g;
     const id = this.route.snapshot.params['id'];
     this.postService.getOnePost(+id).subscribe((response: any) =>{
       if (response) {
         this.post = response;
-        this.postTitle = this.post.title;
-        this.postContent = this.post.content;
+        this.postTitle = outputRegExp[Symbol.replace](this.post.title, "'");
+        this.postContent = outputRegExp[Symbol.replace](this.post.content, "'");
         this.postLike = this.post.post_like;
         this.postUserName = this.post.user_name;
         this.postUserFirstName = this.post.user_firstname;
@@ -86,14 +87,17 @@ export class PostComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.params['id'];
     const formValue = this.commentForm.value;
     const textForComment = inputRegExp[Symbol.replace](formValue['commentText'], "\\'");
-    this.postService.createComment(+id, textForComment);
-    this.postService.getAllComments(+id);
-    this.commentSubscription = this.postService.commentsSubject.subscribe(
-      (comments: any[]) => {
-        this.comments = comments;
-      }
-    )
-    this.commentForm.reset();
+    this.postService.createComment(+id, textForComment).subscribe(
+      (response: any) => {
+        this.postService.getAllComments(+id);
+        this.commentSubscription = this.postService.commentsSubject.subscribe(
+          (comments: any[]) => {
+            this.comments = comments;
+          }
+        )
+        this.commentForm.reset();
+      },
+      (error) => this.errorMessage = error);
   }
 
   onAddLike() {

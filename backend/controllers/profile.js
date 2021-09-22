@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 exports.getAllProfile = (req, res, next) => {
   database.promise().query(`SELECT name, first_name FROM User WHERE is_admin=0;`)
     .then(data => res.status(200).json((JSON.parse(JSON.stringify(data[0])))))
-    .catch(error => res.status(500).json({ error }))
+    .catch(error => res.status(400).json({ error }))
   ;
 }
 
@@ -26,13 +26,13 @@ exports.deleteProfile = (req, res, next) => {
   const user = decodedToken.user;
   database.promise().query(`DELETE FROM User WHERE email= '${user}';`)
     .then(() =>res.status(201).json({ message: 'Votre profil a été supprimé!' }))
-    .catch(error => res.status(500).json({ error }))
+    .catch(error => res.status(400).json({ error }))
   ;  
 }
 
 exports.deleteOneProfile = (req, res, next) => {
   database.promise().query(`DELETE FROM User WHERE email= '${req.params.id}';`)
     .then(() => res.status(201).json({ message: 'Ce profil a été supprimé!' }))
-    .catch(error => res.status(500).json({ error }))
+    .catch(error => res.status(400).json({ error }))
   ;  
 }
