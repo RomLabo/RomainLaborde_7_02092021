@@ -1,102 +1,138 @@
+@mixin mobile-only {
+    @media screen and (max-width: 599px){
+        @content;
+    }
+}
+
 input.ng-dirty.ng-invalid {
-    border-bottom: 3px solid #b20a37 ;
+    border-bottom: 2px solid #b20a37 ;
     animation: headshake 100ms cubic-bezier(.4,.1,.6,.9) 2;
 }
 
 input.ng-dirty.ng-valid {
-    border-bottom: 3px solid green;
+    border-bottom: 2px solid green;
 }
 
 .home-form {
     width: 100%;
     height: 100vh;
+    display: flex;
     &__img {
-        width: 100%;
+        width: 40%;
         height: 100%;
         position: relative;
+        @include mobile-only {
+            display: none;
+        }
     }
-    &__logo {
-        width: 50%;
-        position: absolute;
-        top: 2%;
-        left: 10%;
-    }
-    &__text {
-        width: 20%;
-        position: absolute;
-        top: 12%;
-        left: 10%;
-        font-size: 1.5rem;
-        padding: 0 2% 0 2%;
+    &__form {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        @include mobile-only {
+            width: 100%;
+        }
     }
 }
 
 .form-content {
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8%;
+    justify-content: flex-end;
+    gap: 1rem;
     padding: 0 1rem 0 1rem;
-    height: 50%;
-    width: 25%;
-    top: 20%;
-    right: 5%;
+    height: 400px;
+    width: 325px;
+    border-radius: 1rem;
+    border: 3px solid #ffd7d7;
+    @include mobile-only {
+        width: 90%;
+        height: 75%;
+        padding: 0;
+    }
     &__input {
-        height: 2rem;
+        height: 3rem;
         width: 98%;
         background-color: transparent;
         border: none;
         border-bottom: 1.5px solid #675757;
-        font-size: 1.2rem;
-        &::placeholder {
-            padding: 0 0 0 4px;
-        }
+        font-size: 1.5rem;
         &:active, &:focus {
             outline: none;
-            border-bottom: 3px solid #675757;
+            border-bottom: 2px solid #675757;
+        }
+        &:active::placeholder, &:focus::placeholder {
+            transform: scale(0.5, 0.5) translate(-50%, -40px);
         }
     }
     &__btn {
-        height: 2.5rem;
-        width: 100%;
-        border-radius: 1.2rem;
-        background-color: #fd2d01;
-        border: none;
-        text-decoration: none;
-        color: rgb(26, 25, 25);
         display: flex;
+        height: 5rem;
+        width: 100%;
         justify-content: center;
-        box-shadow: 2px 2px 9px #675757;
-        align-items: center;
-        font-size: 1.5rem;
-        position: relative;
-        z-index: 1;
-        &:disabled {
-            opacity: 0.7;
-        }
-        &:hover {
-            &::after {
-                opacity: 1;
-            }
-        }
-        &::after {
-            content: "";
-            position: absolute;
-            border-radius: 1.2rem;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: radial-gradient(circle, lighten(#fd2d01, 10) 0%, darken(#fd2d01, 10) 100%);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 250ms;
-        }
     }
 }
 
+.content-btn {
+    height: 100%;
+    width: 60%;
+    border: none;
+    text-decoration: none;
+    color: rgb(26, 25, 25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background-color: #fff;
+    &:disabled {
+        opacity: 0.7;
+    }
+    &:hover {
+        &::after {
+            opacity: 1;
+        }
+        &::before {
+            opacity: 1;
+        }
+    }
+    &::before {
+        content: "";
+        bottom: -3px;
+        width: 60%;
+        height: 3px;
+        background-color: #fd2d01;
+        position: absolute;
+        opacity: 0;
+        transition: opacity 250ms;
+    }
+    &::after {
+        content: attr(title);
+        color: #fd2d01;
+        position: absolute;
+        width: 100%;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 1rem;
+        opacity: 0;
+        transition: opacity 250ms;
+    }           
+}
+
+.form-logo {
+    width: 70%;
+}
 
 
 @keyframes headshake {
