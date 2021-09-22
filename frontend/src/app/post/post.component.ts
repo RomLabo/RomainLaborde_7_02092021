@@ -43,6 +43,8 @@ export class PostComponent implements OnInit, OnDestroy {
               private globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.globalService.isAdmin;
+    this.isUser = this.globalService.isUser;
     this.initForm();
     this.onGetOnePost();
     this.onGetPostLiker();
@@ -53,8 +55,6 @@ export class PostComponent implements OnInit, OnDestroy {
         this.comments = comments;
       }
     )
-    this.isAdmin = this.globalService.isAdmin;
-    this.isUser = this.globalService.isUser;
   }
 
   initForm() {

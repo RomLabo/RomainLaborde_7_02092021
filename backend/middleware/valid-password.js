@@ -15,7 +15,7 @@ validPasswordSchema
 
 module.exports = (req, res, next) => {
     try {
-        if (!validPassword.validate(req.body.password)) {
+        if (!validPasswordSchema.validate(req.body.user.password)) {
             throw 'Invalid model of password';
         } else {
             next();

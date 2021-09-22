@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validator, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/User.model';
 import { first } from 'rxjs/operators'
+import { GlobalService } from '../services/global.service';
 
 
 @Component({
@@ -15,6 +16,8 @@ export class SigninComponent implements OnInit {
 
   namePattern = "[a-zA-Z ]*";
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  
+  @Input() errorMessage!: string;
 
   userForm: FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -25,7 +28,7 @@ export class SigninComponent implements OnInit {
 
   authStatus: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private globalService: GlobalService) {}
 
   ngOnInit(): void {
     this.authStatus = this.authService.isAuth;
@@ -56,17 +59,29 @@ export class SigninComponent implements OnInit {
       formValue['email'],
       formValue['password']
     );
-    this.authService.signin(newUser).pipe(first()).subscribe((response: any) => {
-      this.authService.login(newUser.email, newUser.password).subscribe((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-          this.authStatus = this.authService.isAuth;
-          this.router.navigate(['home']);
-        } else {
-          this.router.navigate(['']);
-        }
-      });
-    })
+    this.authService.signin(newUser).pipe(first()).subscribe(
+      (response: any) => {
+        this.authService.login(newUser.email, newUser.password)
+        .subscribe(
+          (response: any) => {
+            if (response.token) {
+              localStorage.setItem('token', response.token);
+              this.globalService.isAdmin = response.userIsAdmin;
+              this.globalService.isUser = response.user;
+              this.authStatus = this.authService.isAuth;
+              this.router.navigate(['home']);
+            } else {
+              this.router.navigate(['']);
+            }
+          },
+          (error) => {
+            console.log(error.error.error)
+            this.errorMessage = error.error.error
+          }
+        );
+      },
+      (error) => this.errorMessage = error.error.error
+    );
   }
 
 }

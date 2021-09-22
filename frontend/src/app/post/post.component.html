@@ -44,7 +44,7 @@
                         aria-label="Texte du Commentaire"
                         placeholder="Ajouter votre commentaire">
             </textarea>
-            <button class="comment-form-btn" name="addComment" type="submit"><i class="far fa-edit"></i></button>
+            <button class="comment-form-btn" name="addComment" [disabled]="commentForm.invalid" type="submit"><i class="far fa-edit"></i></button>
         </form>
         <ul class="comment__list">
             <app-comment class="list-group-item" *ngFor="let comment of comments"

@@ -38,14 +38,14 @@ export class PostModifyComponent implements OnInit {
           this.imagePreview = this.originPost.image_url;
           this.postForm = this.formBuilder.group({
             postTitle: [this.originPost.title, [Validators.minLength(3), Validators.required]],
-            postText: [this.originPost.content, [Validators.required]]
+            postText: [this.originPost.content, [Validators.minLength(3)]]
           })
         }
       })
     } else {
       this.postForm = this.formBuilder.group({
         postTitle: ['', [Validators.minLength(3), Validators.required]],
-        postText: ['', [Validators.required]]
+        postText: ['', Validators.minLength(3)]
       })
     }
   }

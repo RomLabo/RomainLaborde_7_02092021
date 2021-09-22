@@ -12,12 +12,12 @@ input.ng-dirty.ng-valid {
     height: 100vh;
     display: flex;
     &__img {
-        width: 50%;
+        width: 40%;
         height: 100%;
         position: relative;
     }
     &__form {
-        width: 50%;
+        width: 60%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -33,7 +33,7 @@ input.ng-dirty.ng-valid {
     gap: 8%;
     padding: 0 1rem 0 1rem;
     height: 50%;
-    width: 50%;
+    width: 30%;
     &__input {
         height: 3rem;
         width: 98%;
@@ -86,7 +86,7 @@ input.ng-dirty.ng-valid {
 }
 
 .form-logo {
-    width: 90%;
+    width: 70%;
 }
 
 

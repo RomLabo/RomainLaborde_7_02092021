@@ -15,14 +15,19 @@
     justify-content: space-between;
     align-items: center;
     gap: 4rem;
-    height: 5rem;
+    height: 7rem;
     width: 98%;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+    background-color: #fff;
     @include mobile-only {
         gap: 0;
         height: auto;
         flex-wrap: wrap;
         margin: 0 0 2rem 0;
         width: 100%;
+        position: static;
     }
     &__img {
         width: 30%;
@@ -63,7 +68,7 @@
 }
 
 .nav__item {
-    height: 5rem;
+    height: 7rem;
     display: flex;
     justify-content: center;
     align-items: center;

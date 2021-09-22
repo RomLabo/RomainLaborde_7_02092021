@@ -15,8 +15,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin: 2rem 0 0 0;
+    margin: 8rem 0 0 0;
     padding: 0 0 2rem 0;
+    @include mobile-only {
+        margin: 2rem 0 0 0;
+    }
 }
 
 .create-post {
@@ -120,6 +123,14 @@
     &:hover {
         &::after {
             opacity: 1;
+        }
+    }
+    &:disabled {
+        &:hover {
+            &::after {
+                opacity: 0;
+            }
+            cursor: pointer;
         }
     }
     &::after {
