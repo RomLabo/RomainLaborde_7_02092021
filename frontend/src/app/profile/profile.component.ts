@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   @Input() userSearchedName!: string;
   @Input() userSearchedFirstName!: string;
   @Input() errorMessage!: string;
+  @Input() userSearchedIsAdmin!: number;
 
   searchForm: FormGroup = new FormGroup({
     searchUser: new FormControl(''),
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
   user!: any;
   isAdmin!: number;
   userSearched!: any;
+  
   
 
   constructor(private userService: UserService, private globalService: GlobalService, private formBuilder: FormBuilder) {
@@ -87,6 +89,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getOneProfile(id).subscribe(
       (response: Object) =>{
         this.userSearched = response;
+        this.userSearchedIsAdmin = this.userSearched.is_admin;
         this.userSearchedName = this.userSearched.name;
         this.userSearchedFirstName = this.userSearched.first_name;
         this.errorMessage = '';

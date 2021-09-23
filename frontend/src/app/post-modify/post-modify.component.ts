@@ -89,4 +89,9 @@ export class PostModifyComponent implements OnInit {
     }
   }
 
+  deleteImagePreview() {
+    this.imagePreview = '';
+    this.dataImage = null;
+  }
+
 }

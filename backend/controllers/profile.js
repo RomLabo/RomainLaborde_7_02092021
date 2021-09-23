@@ -31,8 +31,8 @@ exports.deleteProfile = (req, res, next) => {
 }
 
 exports.deleteOneProfile = (req, res, next) => {
-  database.promise().query(`DELETE FROM User WHERE email= '${req.params.id}';`)
-    .then(() => res.status(201).json({ message: 'Ce profil a été supprimé!' }))
+  database.promise().query(`DELETE FROM User WHERE email= '${req.params.id}' AND is_admin != 1;`)
+    .then(() => res.status(200).json({ message: 'Ce profil a été supprimé!' }))
     .catch(error => res.status(400).json({ error }))
   ;  
 }

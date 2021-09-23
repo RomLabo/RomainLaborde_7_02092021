@@ -10,10 +10,10 @@
                 <span *ngIf="postDay < 1 && postHour < 1 && postMinute < 1">maintenant</span>
                 <span *ngIf="postDay > 0 || postHour > 0 || postMinute > 0">il y a </span>
                 <span *ngIf="postDay > 0">{{ postDay }} jour<span *ngIf="postDay > 1">s</span></span>
-                <span *ngIf="postDay > 0 && postHour > 0"> et </span>
-                <span *ngIf="postHour > 0">{{ postHour }} heure<span *ngIf="postHour > 1">s</span></span>
-                <span *ngIf="postHour > 0 && postMinute > 0"> et </span>
-                <span *ngIf="postMinute > 0">{{ postMinute }} minute<span *ngIf="postMinute > 1">s</span></span>
+                <span *ngIf="postDay > 0 && postHour > 0 && postHour < 24"> et </span>
+                <span *ngIf="postHour > 0 && postHour < 24">{{ postHour }} heure<span *ngIf="postHour > 1">s</span></span>
+                <span *ngIf="postHour > 0 && postMinute > 0 && postMinute < 60"> et </span>
+                <span *ngIf="postMinute > 0 && postMinute < 60">{{ postMinute }} minute<span *ngIf="postMinute > 1">s</span></span>
             </p>
             <div class="info-like">
                 <i class="info-like__icon fas fa-arrows-alt-v" ></i>

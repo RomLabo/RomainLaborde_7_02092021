@@ -23,7 +23,7 @@
             <div *ngIf="userSearched != null ">
                 <h4>{{ userSearchedName }}</h4>
                 <p>{{ userSearchedFirstName }}</p>
-                <button class="profile-btn" (click)="adminDeleteClick()" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+                <button class="profile-btn" [disabled]="userSearchedIsAdmin === 1" (click)="adminDeleteClick()" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
                 <div class="option-confirmation" *ngIf="adminClickedBouton === true">
                     <p class="option-confirmation__text">Etes vous sûr de vouloir supprimer ce profil ?</p>
                     <div class="option-confirmation__btn">

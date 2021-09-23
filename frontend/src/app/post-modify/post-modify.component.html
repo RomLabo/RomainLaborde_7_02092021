@@ -5,7 +5,7 @@
         <div class="create-post__form">
             <form class="form-content" [formGroup]="postForm" (ngSubmit)="onModifyPost()">
                 <input id="post-title" class="form-content__title" name="post-title" type="text" aria-label="Titre du post" placeholder="Ajouter votre titre" formControlName="postTitle">
-                <div class="form-content__img" *ngIf="(imagePreview != undefined && imagePreview != 'imageUrl')">
+                <div class="form-content__img" *ngIf="(imagePreview != undefined && imagePreview != '' && imagePreview != 'imageUrl')">
                     <img [src]="imagePreview" alt="L'image du post">
                 </div>
                 <textarea name="post-text"
@@ -18,6 +18,12 @@
                 </textarea>  
                 <div class="form-content__btn">
                     <button class="form-btn-add-post" name="addPost" type="submit" [disabled]="postForm.invalid" title="Poster"><i class="fas fa-plus"></i></button>
+                    <button class="form-btn-add-img" type="button" [disabled]="!imagePreview || imagePreview === 'imageUrl'" (click)="deleteImagePreview()">
+                        <span class="fa-stack fa-2x form-btn-icon">
+                            <i class="far fa-image fa-stack-1x"></i>
+                            <i class="fas fa-slash fa-stack-1x"></i>
+                        </span>
+                    </button>
                     <button class="form-btn-add-img" (click)="fileUpload.click()" type="button" title="Ajouter une image"><i class="far fa-image"></i></button>
                 </div>
             </form>
