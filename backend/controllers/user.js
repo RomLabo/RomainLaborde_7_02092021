@@ -7,7 +7,9 @@ const database = require('../models/data-base');
 exports.signin = (req, res, next) => {
   bcrypt.hash(req.body.user.password, 10)
     .then(hash => {
-      database.promise().query(`INSERT INTO User (email, password, name, first_name) VALUES ('${req.body.user.email}', '${hash}', '${req.body.user.name}', '${req.body.user.firstName}');`)
+      database.promise().query(`INSERT INTO User (email, password, name, first_name) 
+      VALUES ( ?, ?, ?, ? );`, 
+      [req.body.user.email, hash, req.body.user.name, req.body.user.firstName])
         .then(() => res.status(201).json({ message: 'Utilisateur créer !' }))
         .catch(error => res.status(401).json({ error: 'Cette email est déjà utilisé' }));  
     })
@@ -17,7 +19,7 @@ exports.signin = (req, res, next) => {
 
 
 exports.login = (req, res, next) => {
-  database.promise().query(`SELECT * FROM User WHERE email = '${req.body.email}';`)
+  database.promise().query(`SELECT * FROM User WHERE email = ?;`, [req.body.email])
     .then((row) => {
       const userInfo = (JSON.parse(JSON.stringify(row[0])))[0];
       bcrypt.compare(req.body.password, userInfo.password)
@@ -31,7 +33,7 @@ exports.login = (req, res, next) => {
             user: req.body.email,
             userIsAdmin: userInfo.is_admin,
             token: jwt.sign(
-              { user: req.body.email, userIsAdmin: userInfo.is_admin },
+              { user: req.body.email },
               process.env.SECRET_TOK,
               { expiresIn: '5h' }
             )

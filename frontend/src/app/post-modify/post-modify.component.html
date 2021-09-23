@@ -17,7 +17,6 @@
                             placeholder="Ajouter votre texte">
                 </textarea>  
                 <div class="form-content__btn">
-                    <button class="form-btn-add-post" name="addPost" type="submit" [disabled]="postForm.invalid" title="Poster"><i class="fas fa-plus"></i></button>
                     <button class="form-btn-add-img" type="button" [disabled]="!imagePreview || imagePreview === 'imageUrl'" (click)="deleteImagePreview()">
                         <span class="fa-stack fa-2x form-btn-icon">
                             <i class="far fa-image fa-stack-1x"></i>
@@ -25,6 +24,7 @@
                         </span>
                     </button>
                     <button class="form-btn-add-img" (click)="fileUpload.click()" type="button" title="Ajouter une image"><i class="far fa-image"></i></button>
+                    <button class="form-btn-add-post" name="addPost" type="submit" [disabled]="postForm.invalid" title="Poster"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </form>
         </div>

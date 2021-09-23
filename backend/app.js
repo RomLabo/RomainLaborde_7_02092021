@@ -3,7 +3,6 @@ const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const profileRoutes = require('./routes/profile');
 const path = require('path');
-const cookieSession = require('cookie-session');
 const helmet = require("helmet");
 const database = require('./models/data-base');
 
@@ -31,11 +30,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use(cookieSession({
-  name: 'session',
-  maxAge: 5 * 60 * 60 * 1000,
-  keys: [process.env.COOKIE_KEY]
-}))
 
 app.use('/api/post', postRoutes);
 

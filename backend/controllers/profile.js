@@ -9,7 +9,7 @@ exports.getAllProfile = (req, res, next) => {
 }
 
 exports.getOneProfile = (req, res, next) => {
-  database.promise().query(`SELECT * FROM User WHERE email= '${req.params.id}';`)
+  database.promise().query(`SELECT name, first_name, is_admin FROM User WHERE email= ?;`, [req.params.id])
     .then(data => {
       if ((data[0])[0] == null) {
         return res.status(404).json({ error: 'Aucun utilisateur n\'est enregistré avec cette email' })
@@ -24,15 +24,25 @@ exports.deleteProfile = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
   const user = decodedToken.user;
-  database.promise().query(`DELETE FROM User WHERE email= '${user}';`)
+  database.promise().query(`DELETE FROM User WHERE email= ?;`, [user])
     .then(() =>res.status(201).json({ message: 'Votre profil a été supprimé!' }))
     .catch(error => res.status(400).json({ error }))
   ;  
 }
 
 exports.deleteOneProfile = (req, res, next) => {
-  database.promise().query(`DELETE FROM User WHERE email= '${req.params.id}' AND is_admin != 1;`)
-    .then(() => res.status(200).json({ message: 'Ce profil a été supprimé!' }))
-    .catch(error => res.status(400).json({ error }))
-  ;  
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+  const user = decodedToken.user;
+  database.promise().query(`SELECT is_admin FROM User WHERE email= ?;`, [user])
+    .then(data => {
+      const userInfo = (JSON.parse(JSON.stringify(data[0])))[0];
+      if (userInfo.is_admin !== 1) {
+        return res.status(403).json({ error: "Vous n'avez pas le droit de supprimer ce profil"})
+      }
+      database.promise().query(`DELETE FROM User WHERE email= ? AND is_admin != 1;`, [req.params.id])
+        .then(() => res.status(200).json({ message: 'Ce profil a été supprimé!' }))
+        .catch(error => res.status(400).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }))  
 }

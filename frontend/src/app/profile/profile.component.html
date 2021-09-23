@@ -16,7 +16,7 @@
         </div>
         <div class="profile__content" *ngIf="isAdmin === 1">
             <form class="search-user-form" [formGroup]="searchForm" (ngSubmit)="onGetOneProfile()">
-                <input id="search-user" class="profile-input" name="search-user" type="text" aria-label="Recherche un utilisateur" formControlName="searchUser">
+                <input id="search-user" class="profile-input" name="search-user" placeholder="Rechercher un utilisateur" type="text" aria-label="Recherche un utilisateur" formControlName="searchUser">
                 <button class="profile-btn" name="addComment" type="submit" title="Rechercher"><i class="fas fa-search"></i></button>
             </form>
             <p id="error-message" *ngIf="errorMessage != null ">{{ errorMessage }}</p>

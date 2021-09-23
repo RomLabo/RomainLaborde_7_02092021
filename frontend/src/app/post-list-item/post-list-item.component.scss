@@ -1,9 +1,5 @@
-@mixin mobile-only {
-    @media screen and (max-width: 599px){
-        @content;
-    }
-}
-
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
 
 .list-item {
     text-decoration: none;

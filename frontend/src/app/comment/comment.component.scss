@@ -1,3 +1,6 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
 .list-option {
     width: 90%;
     height: auto;
@@ -11,41 +14,15 @@
 }
 
 .option-btn {
-    text-decoration: none;
-    background-color: #ffd7d7;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    width: 3rem;
-    height: 3rem;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 1;
-    position: relative;
-    color: #000;
+    @include btn-style(main-btn);
     &:hover {
         &::after {
             opacity: 1;
         }
     }
     &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
-        border-radius: 50%;
-        width: 100%;
-        opacity: 0;
-        z-index: -1;
-        transition: opacity 250ms;
+        @include after-style(after-btn);
+        background: $btn-after-background;
     }
 }
 
@@ -68,36 +45,15 @@
         width: 60%;
     }
     &__btn {
-        background-color: #ffd7d7;
-        border-radius: 50%;
-        font-size: 1.2rem;
-        width: 3rem;
-        height: 3rem;
-        border: none;
-        cursor: pointer;
-        position: relative;
-        z-index: 1;
+        @include btn-style(main-btn);
         &:hover {
             &::after {
                 opacity: 1;
             }
         }
         &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
-            border-radius: 50%;
-            width: 100%;
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 250ms;
+            @include after-style(after-btn);
+            background: $btn-after-background;
         }
     }
 }

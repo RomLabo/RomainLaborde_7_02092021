@@ -1,14 +1,5 @@
-@mixin tablet-only {
-    @media screen and (min-width: 600px) and (max-width: 999px){
-        @content;
-    }
-}
-
-@mixin mobile-only {
-    @media screen and (max-width: 599px){
-        @content;
-    }
-}
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
 
 .create-post-form {
     display: flex;
@@ -164,7 +155,7 @@
     }
     @for $i from 1 through 10 {
         &--#{$i} {
-            animation-delay: 250ms * $i;
+            animation-delay: 100ms * $i;
         }
     }
 }
