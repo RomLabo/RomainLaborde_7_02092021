@@ -57,7 +57,7 @@
     background-color: #fff;
     padding: 2%;
     text-decoration: none;
-    color: black;
+    color: $text-color;
     &__title {
         font-size: 1.5rem;
         margin: 0 0 1rem 0;
@@ -130,6 +130,7 @@
 
 .option-btn {
     @include btn-style(main-btn);
+    color: $text-color;
     &:hover {
         &::after {
             opacity: 1;

@@ -25,7 +25,6 @@
     z-index: map-get($style, z-index);
     cursor: map-get($style, cursor);
     text-decoration: map-get($style, text-decoration);
-    color: map-get($style, colour);
 }
 
 @mixin after-style($name) {

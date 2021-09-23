@@ -3,7 +3,7 @@
 
 .list-item {
     text-decoration: none;
-    color: black;
+    color: $text-color;
     &__title {
         font-size: 1.5rem;
         margin: 0 0 1rem 0;
@@ -49,7 +49,7 @@
     text-decoration: none;
     font-size: 1.2rem;
     margin: 1rem 0 0 0;
-    color: black;
+    color: $text-color;
     @include mobile-only {
         width: 90%;
     }

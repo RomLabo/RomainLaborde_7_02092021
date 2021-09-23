@@ -66,7 +66,7 @@
     text-decoration: none;
     border: 0.15rem #FFF solid;
     position: relative;
-    color: black;
+    color: $text-color;
     &:hover {
         &::after {
             opacity: 1;

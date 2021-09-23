@@ -1,5 +1,5 @@
 $btn-after-background: radial-gradient(circle, #fd2d01 0%, #ffd7d7  100%);
-
+$text-color: #2e2e2e;
 
 $btn-style: (
     main-btn: (
@@ -16,19 +16,6 @@ $btn-style: (
         z-index: 1,
         cursor: pointer,
         text-decoration: none,
-        colour: #000,
-    ),
-    header-btn: (
-        width: 240px,
-        height: 4rem,
-        bd-rad: 1.2rem,
-        bg: #f6f6f6,
-    ),
-    login-btn: (
-        width: 100%,
-        height: 3.6rem,
-        bd-rad: 1rem,
-        bg: #fff,
     )
 );
 
